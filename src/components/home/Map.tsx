@@ -1,12 +1,14 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import { createRoot } from 'react-dom/client'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { Warehouse } from '@/core/domain/models/warehouse.model'
 import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png'
 import markerIcon from 'leaflet/dist/images/marker-icon.png'
 import markerShadow from 'leaflet/dist/images/marker-shadow.png'
+import { NewLocationPopup } from './components/NewLocationPopup'
 
 type IconDefaultPrototype = typeof L.Icon.Default.prototype & {
   _getIconUrl?: (name: string) => string;
@@ -77,45 +79,33 @@ const Map = ({ center, warehouses, userLocation, onWarehouseSelect, onCreateWare
           }
         })
 
-        // Create popup content
-        const popupContent = document.createElement('div')
-        popupContent.className = 'p-2'
+        // Create the popup container
+        const popupContainer = document.createElement('div')
+        
+        // Create the React root
+        const root = createRoot(popupContainer)
+        
+        // Render the popup component
+        root.render(
+          <NewLocationPopup
+            lat={lat}
+            lng={lng}
+            onCreateWarehouse={() => {
+              onCreateWarehouse?.({ lat, lng })
+              if (tempMarkerRef.current) {
+                tempMarkerRef.current.closePopup()
+              }
+            }}
+            onCreateOrder={() => {
+              onCreateOrder?.({ lat, lng })
+              if (tempMarkerRef.current) {
+                tempMarkerRef.current.closePopup()
+              }
+            }}
+          />
+        )
 
-        // Buttons container
-        const buttonsContainer = document.createElement('div')
-        buttonsContainer.className = 'flex flex-col gap-2'
-
-        // Create warehouse button
-        const createWarehouseButton = document.createElement('button')
-        createWarehouseButton.className = 
-          'px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 text-sm font-medium w-full'
-        createWarehouseButton.textContent = 'Crear Almacén'
-        createWarehouseButton.onclick = (e) => {
-          e.preventDefault()
-          onCreateWarehouse?.({ lat, lng })
-          if (tempMarkerRef.current) {
-            tempMarkerRef.current.closePopup()
-          }
-        }
-
-        // Create order button
-        const createOrderButton = document.createElement('button')
-        createOrderButton.className = 
-          'px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 text-sm font-medium w-full'
-        createOrderButton.textContent = 'Crear Pedido'
-        createOrderButton.onclick = (e) => {
-          e.preventDefault()
-          onCreateOrder?.({ lat, lng })
-          if (tempMarkerRef.current) {
-            tempMarkerRef.current.closePopup()
-          }
-        }
-
-        buttonsContainer.appendChild(createWarehouseButton)
-        buttonsContainer.appendChild(createOrderButton)
-        popupContent.appendChild(buttonsContainer)
-
-        tempMarkerRef.current.bindPopup(popupContent).openPopup()
+        tempMarkerRef.current.bindPopup(popupContainer).openPopup()
       })
     }
 
