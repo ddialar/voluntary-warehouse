@@ -1,7 +1,10 @@
 const toRad = (value: number) => value * Math.PI / 180
 
-export const calculateDistance = (point1: { lat: number; lng: number }, point2: { lat: number; lng: number }) => {
-  const R = 6371
+export const calculateDistance = (
+  point1: { lat: number; lng: number },
+  point2: { lat: number; lng: number }
+) => {
+  const R = 6371 // Earth radius in km
   const dLat = toRad(point2.lat - point1.lat)
   const dLon = toRad(point2.lng - point1.lng)
   const lat1 = toRad(point1.lat)

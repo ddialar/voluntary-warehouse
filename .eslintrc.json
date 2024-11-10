@@ -8,6 +8,14 @@
     "semi": [
       "error",
       "never"
+    ],
+    "no-unused-vars": 0,
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "args": "none",
+        "ignoreRestSiblings": true
+      }
     ]
   }
 }

@@ -1,4 +1,4 @@
-import { getWarehouses } from '@/core/domain/services/warehouse.service'
+import { getWarehouses } from '@/core/services/warehouse.service'
 import { HomeClient } from './HomeClient'
 
 export default async function HomePage() {
