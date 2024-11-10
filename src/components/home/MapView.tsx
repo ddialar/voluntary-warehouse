@@ -35,6 +35,9 @@ export const MapView = ({ warehouses, onWarehouseCreate }: MapViewProps) => {
     }
   }
 
+  const onCreateWarehouse = (location: { lat: number; lng: number }) => { console.dir({ method: 'onCreateWarehouse', location }, { depth: null }) }
+  const onCreateOrder = (location: { lat: number; lng: number }) => { console.dir({ method: 'onCreateOrder', location }, { depth: null }) }
+
   return (
     <>
       <div className="absolute top-4 right-4 z-[1000]">
@@ -48,6 +51,8 @@ export const MapView = ({ warehouses, onWarehouseCreate }: MapViewProps) => {
           warehouses={warehouses}
           userLocation={DEFAULT_LOCATION}
           onWarehouseSelect={handleWarehouseAssociation}
+          onCreateWarehouse={onCreateWarehouse}
+          onCreateOrder={onCreateOrder}
         />
       </div>
     </>
