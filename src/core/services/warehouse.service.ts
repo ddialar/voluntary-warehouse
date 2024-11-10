@@ -13,9 +13,9 @@
 //   GeoPoint
 // } from 'firebase/firestore'
 import { Warehouse } from '@/core/domain/models/warehouse.model'
-// REMOVE: This function is used for development tasks only
 import { randomUUID } from 'crypto'
 import { geocodeAddressWithRateLimit } from './location.service'
+import { WarehouseRepository } from '@/infrastructure/repository/warehouse.repository'
 
 // const WAREHOUSES_COLLECTION = 'warehouses'
 // const WAREHOUSE_SEQUENCES_COLLECTION = 'warehouse_sequences'
@@ -93,8 +93,7 @@ interface CreateWarehouseProps {
   userId: string
 }
 
-const mockedWarehouses: Warehouse[] = []
-export const createWarehouse = async ({ name, location, userId }: CreateWarehouseProps): Promise<Warehouse> => {
+export const createWarehouse = async ({ name, location, userId }: CreateWarehouseProps): Promise<void> => {
 
   console.dir({ name, location, userId }, { depth: null })
 
@@ -118,7 +117,7 @@ export const createWarehouse = async ({ name, location, userId }: CreateWarehous
       throw new Error('Ya existe un almacén en esta ubicación')
     }
 
-    // const warehouseRef = doc(collection(db, WAREHOUSES_COLLECTION))
+    // NOTE: This definition of the document ID could be the rule for the test of entities in order to standarize the process for future database migrations.
     const warehouseRef = { id: randomUUID() }
     const warehouse: Warehouse = {
       id: warehouseRef.id,
@@ -134,19 +133,9 @@ export const createWarehouse = async ({ name, location, userId }: CreateWarehous
       updatedAt: new Date()
     }
 
-    // await setDoc(warehouseRef, {
-    //   ...warehouse,
-    //   geopoint: new GeoPoint(geocodedLocation.lat, geocodedLocation.lng),
-    //   createdAt: serverTimestamp(),
-    //   updatedAt: serverTimestamp()
-    // })
-
     console.dir({ warehouse }, { depth: null })
 
-    // REMOVE: This is for development tasks only
-    mockedWarehouses.push(warehouse)
-
-    return warehouse
+    await WarehouseRepository.createWarehouse(warehouse)
   } catch (error) {
     if (error instanceof Error) {
       throw error
@@ -171,16 +160,7 @@ export const createWarehouse = async ({ name, location, userId }: CreateWarehous
 
 export const getWarehouses = async (): Promise<Array<Warehouse>> => {
   // TODO: Request all warehouses from storage
-  // const warehousesRef = collection(db, WAREHOUSES_COLLECTION)
-  // const q = query(warehousesRef, where('active', '==', true))
-
-  // const querySnapshot = await getDocs(q)
-  // return querySnapshot.docs.map(doc => ({
-  //   id: doc.id,
-  //   ...doc.data()
-  // } as Warehouse))
-
-  // return await storageAdapter.getWarehouses()
+  // return await WarehouseRepository.getWarehouses()
 
   return Promise.resolve([
     {
