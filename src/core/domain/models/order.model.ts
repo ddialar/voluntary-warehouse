@@ -9,34 +9,35 @@ export type OrderStatus =
   | 'in_delivery'
   /** The order was delivered successfully */
   | 'delivered'
+  /** The order was delivered directly in the warehouse */
+  | 'delivered_at_warehouse'
   /** The order was picked up but never delivered */
-  | 'lost';
+  | 'lost'
 
 export interface OrderItem {
-  productId: string;
-  quantity: number;
-  packed: boolean;
+  productId: string
+  quantity: number
+  packed: boolean
 }
 
 export interface Order {
-  id: string;
-  code: string; // AAA-PPPP
-  warehouseId: string;
-  requestedBy: string;
-  preparedBy?: string;
-  deliveredBy?: string;
-  deliveryLocation: Location;
-  items: OrderItem[];
-  status: OrderStatus;
-  priority: number; // Default 0
-  createdAt: Date;
-  updatedAt: Date;
-  preparationStartedAt?: Date;
-  preparationStartedBy?: string;
-  readyForDeliveryAt?: Date;
-  pickedUpAt?: Date;
-  pickedUpBy?: string;
-  deliveredAt?: Date;
-  comments?: string;
+  id: string
+  code: string // AAA-PPPP
+  warehouseId: string
+  requestedBy: string
+  preparedBy?: string
+  deliveredBy?: string
+  deliveryLocation: Location
+  items: OrderItem[]
+  status: OrderStatus
+  priority: number // Default 0
+  createdAt: Date
+  updatedAt: Date
+  preparationStartedAt?: Date
+  preparationStartedBy?: string
+  readyForDeliveryAt?: Date
+  pickedUpAt?: Date
+  pickedUpBy?: string
+  deliveredAt?: Date
+  comments?: string
 }
-
