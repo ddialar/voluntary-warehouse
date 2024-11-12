@@ -1,8 +1,3 @@
-import { getWarehouses } from '@/core/services/warehouse.service'
-import { HomeClient } from './HomeClient'
-
-export default async function HomePage() {
-  const warehouses = await getWarehouses()
-  
-  return <HomeClient warehouses={warehouses} />
+export default async function Home() {
+  return <h1>Landing page</h1>
 }

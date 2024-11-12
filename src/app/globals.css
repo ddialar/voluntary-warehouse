@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* :root {
   --background: #ffffff;
   --foreground: #171717;
 }
@@ -12,10 +12,11 @@
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
 body {
-  color: var(--foreground);
+  /* color: var(--foreground); */
+  color: #0a0a0a;
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -28,7 +29,6 @@ body {
   padding: 1px !important; /* Mantenemos un pequeño padding */
 }
 
-/* Asegurarnos que el botón de cierre se mantenga visible y en su posición */
 .leaflet-popup-close-button {
   position: absolute !important;
   right: 0 !important;
@@ -36,7 +36,6 @@ body {
   padding: 4px 4px 0 0 !important;
 }
 
-/* Opcional: si quieres mejorar el aspecto general del popup */
 .leaflet-popup-content-wrapper, 
 .leaflet-popup-tip {
   background: white !important;
