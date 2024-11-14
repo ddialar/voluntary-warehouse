@@ -1,9 +1,9 @@
 ---
 name: 📝 Documentation
 about: Documentation tasks
-title: "[Docs]: "
+title: 'docs/'
 labels: documentation
-assignees: ""
+assignees: ''
 ---
 
 **Documentation type**
