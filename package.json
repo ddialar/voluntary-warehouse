@@ -1,5 +1,6 @@
 {
   "name": "voluntary-warehouse",
+  "description": "Web platform designed to assist in the organization and distribution of essential resources by volunteers to victims of disasters and emergencies.",
   "version": "0.1.1",
   "private": true,
   "scripts": {
