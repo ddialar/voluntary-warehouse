@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* :root {
   --background: #ffffff;
   --foreground: #171717;
 }
@@ -12,10 +12,32 @@
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
 body {
-  color: var(--foreground);
+  /* color: var(--foreground); */
+  color: #0a0a0a;
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.leaflet-popup-content {
+  min-width: 240px !important;
+}
+
+.leaflet-popup-content-wrapper {
+  padding: 1px !important; /* Mantenemos un pequeño padding */
+}
+
+.leaflet-popup-close-button {
+  position: absolute !important;
+  right: 0 !important;
+  top: 0 !important;
+  padding: 4px 4px 0 0 !important;
+}
+
+.leaflet-popup-content-wrapper, 
+.leaflet-popup-tip {
+  background: white !important;
+  box-shadow: 0 3px 14px rgba(0,0,0,0.2) !important;
 }

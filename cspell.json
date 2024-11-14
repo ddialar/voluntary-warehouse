@@ -1,0 +1,94 @@
+{
+  "version": "0.2",
+  "language": "en,es,ca",
+  "languageSettings": [
+    {
+      "languageId": "typescript,javascript,json",
+      "locale": "*",
+      "allowCompoundWords": true,
+      "dictionaries": [
+        "typescript",
+        "node",
+        "npm",
+        "softwareTerms",
+        "spanish",
+        "catalan"
+      ]
+    }
+  ],
+  "dictionaryDefinitions": [
+    {
+      "name": "catalan",
+      "path": "./node_modules/@cspell/dict-ca/Spanish/ca.txt"
+    },
+    {
+      "name": "spanish",
+      "path": "./node_modules/@cspell/dict-es-es/Spanish/es_ES.txt"
+    }
+  ],
+  "words": [
+    "deprecat",
+    "dotenv",
+    "eslint",
+    "fastify",
+    "middlewares",
+    "mongodb",
+    "nestjs",
+    "nomo",
+    "pino",
+    "postgres",
+    "prettier",
+    "redis",
+    "repos",
+    "socketio",
+    "sqlite",
+    "tsconfig",
+    "typeorm",
+    "vitest",
+    "websocket"
+  ],
+  "ignoreWords": [
+    "nomoapp"
+  ],
+  "ignorePaths": [
+    "node_modules/**",
+    "dist/**",
+    "build/**",
+    "coverage/**",
+    ".git/**",
+    "*.min.*",
+    "package-lock.json",
+    "yarn.lock",
+    ".eslintrc",
+    "*.svg"
+  ],
+  "allowCompoundWords": true,
+  "patterns": [
+    {
+      "name": "GUIDs",
+      "pattern": "/[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/g"
+    }
+  ],
+  "ignoreRegExpList": [
+    "\\(.*\\)",
+    "/\\*[^*]*\\*+([^/*][^*]*\\*+)*/",
+    "\\w+\\.\\w+",
+    "\\d+"
+  ],
+  "dictionaries": [
+    "typescript",
+    "node",
+    "npm",
+    "softwareTerms"
+  ],
+  "flagWords": [],
+  "overrides": [
+    {
+      "filename": "**/*.test.{ts,js}",
+      "words": [
+        "mockup",
+        "mocked"
+      ]
+    }
+  ]
+}
