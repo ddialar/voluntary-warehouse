@@ -1,4 +1,4 @@
-import { NEXT_PUBLIC_MAX_AMOUNT_OF_WAREHOUSES_PER_DAY } from '@config'
+import { MAX_AMOUNT_OF_WAREHOUSES_PER_DAY } from '@config'
 import { Warehouse } from '@modules/warehouse/warehouse.model'
 import { WarehouseRepository } from '@modules/warehouse/warehouse.repository'
 import { randomUUID } from 'crypto'
@@ -9,7 +9,7 @@ const throwErrorIfUserCannotCreateMoreWarehousesToday = async (userId: string): 
   const end = new Date(new Date().setHours(23, 59, 59, 0))
 
   const warehousesCreatedToday = await WarehouseRepository.getWarehousesCreatedTodayByUserId({ userId, start, end })
-  if (warehousesCreatedToday.length >= NEXT_PUBLIC_MAX_AMOUNT_OF_WAREHOUSES_PER_DAY) {
+  if (warehousesCreatedToday.length >= MAX_AMOUNT_OF_WAREHOUSES_PER_DAY) {
     // TODO: Throw a correctly formatted error
     throw new MaximumAmountOfCreatedWarehousesReachedError()
   }
