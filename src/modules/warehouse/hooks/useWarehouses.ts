@@ -17,17 +17,17 @@ export const useWarehouses = () => {
     try {
       const result = await createWarehouse(payload)
 
-      if (!result.success) throw new Error(result.result.toString())
-
-      mutate(
-        WAREHOUSES_KEY,
-        {
-          result: {
-            warehouses: [...((data?.result.warehouses as Array<Warehouse>) || []), result.result]
-          }
-        },
-        false
-      )
+      if (result.success) {
+        mutate(
+          WAREHOUSES_KEY,
+          {
+            result: {
+              warehouses: [...((data?.result.warehouses as Array<Warehouse>) || []), result.result]
+            }
+          },
+          false
+        )
+      }
 
       return result
     } catch (error) {
