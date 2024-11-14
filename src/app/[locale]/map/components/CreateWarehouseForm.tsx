@@ -45,7 +45,6 @@ export const CreateWarehouseForm = ({ location, onClose }: CreateWarehouseFormPr
   const onSubmit = async (data: CreateWarehouseFormData) => {
     setIsSubmitting(true)
     const toasterId = toaster.loading('Creando almacén...')
-    console.dir({ method: 'onSubmit', data, location }, { depth: null })
 
     const result = await createWarehouse(data)
     if (result.success) {
