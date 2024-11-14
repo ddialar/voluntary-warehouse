@@ -2,9 +2,27 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@components/*": [
+        "./src/components/*"
+      ],
+      "@config": [
+        "./src/config"
+      ],
+      "@errors": [
+        "./src/modules/core/errors"
+      ],
+      "@fetcher": [
+        "./src/lib/fetcher"
+      ],
+      "@hooks": [
+        "./src/hooks"
+      ],
+      "@middlewares": [
+        "./src/infrastructure/middlewares"
+      ],
+      "@modules/*": [
+        "./src/modules/*"
+      ],
     }
   }
 }
