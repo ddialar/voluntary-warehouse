@@ -1,9 +1,9 @@
 ---
 name: 🐛 Bug Report
 about: Report an application error
-title: "[Bug]: "
+title: 'fix/'
 labels: bug
-assignees: ""
+assignees: ''
 ---
 
 **Description**
@@ -17,9 +17,9 @@ A bug has been detected in [component/functionality]
 
 **Expected behavior**
 
-- **Current behavior**
+**Current behavior**
 
-- **Evidence**
+**Evidence**
 
 - Screenshots/videos:
 - Logs:

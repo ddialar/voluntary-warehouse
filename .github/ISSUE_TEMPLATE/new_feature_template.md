@@ -1,9 +1,9 @@
 ---
 name: ✨ New Feature
 about: Propose a new feature
-title: "[Feature]: "
-labels: enhancement
-assignees: ""
+title: 'feat/'
+labels: feature, enhancement
+assignees: ''
 ---
 
 **Context**
@@ -16,7 +16,7 @@ Brief description of the need/problem it solves
 
 **Technical requirements**
 
-- **Acceptance criteria**
+**Acceptance criteria**
 
 - [ ] Criteria 1
 - [ ] Criteria 2

@@ -1,9 +1,9 @@
 ---
 name: 🔄 Refactoring
 about: Code refactoring proposal
-title: "[Refactor]: "
+title: 'refactor/'
 labels: refactor
-assignees: ""
+assignees: ''
 ---
 
 **Motivation**
