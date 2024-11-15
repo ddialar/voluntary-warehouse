@@ -1,0 +1,23 @@
+{
+  "common": {
+    "cancel": "Cancelar",
+    "create": "Crear",
+    "creating": "Creando ...",
+    "latitude": "Latitud",
+    "longitude": "Longitud"
+  },
+  "warehouse": {
+    "create": {
+      "form": {
+        "nameLabel": "Nombre del almacén",
+        "namePlaceholder": "Introduce el nombre del almacén",
+        "title": "Crear Nuevo Almacén"
+      },
+      "toasts": {
+        "creating": "Creando almacén ...",
+        "creationError": "Error al crear almacén",
+        "creationSuccess": "Almacén creado correctamente"
+      }
+    }
+  }
+}
