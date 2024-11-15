@@ -3,6 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { toaster } from '@modules/core/components/toaster'
 import { useWarehouses } from '@modules/warehouse/hooks'
+import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -21,6 +22,7 @@ interface CreateWarehouseFormProps {
 }
 
 export const CreateWarehouseForm = ({ location, onClose }: CreateWarehouseFormProps) => {
+  const t = useTranslations()
   const { create: createWarehouse } = useWarehouses()
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -44,13 +46,15 @@ export const CreateWarehouseForm = ({ location, onClose }: CreateWarehouseFormPr
 
   const onSubmit = async (data: CreateWarehouseFormData) => {
     setIsSubmitting(true)
-    const toasterId = toaster.loading('Creando almacén...')
+    const toasterId = toaster.loading(t('warehouse.create.toasts.creating'))
 
     const result = await createWarehouse(data)
     if (result.success) {
-      toaster.success(toasterId, 'Almacén creado correctamente')
+      // toaster.success(toasterId, 'Almacén creado correctamente')
+      toaster.success(toasterId, t('warehouse.create.toasts.creationSuceess'))
     } else {
-      toaster.error(toasterId, 'Error al crear el almacén')
+      // toaster.error(toasterId, 'Error al crear el almacén')
+      toaster.error(toasterId, t('warehouse.create.toasts.creationError'))
     }
 
     reset()
@@ -63,7 +67,7 @@ export const CreateWarehouseForm = ({ location, onClose }: CreateWarehouseFormPr
       <div className="flex-grow space-y-4">
         <div className="space-y-2">
           <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-            Nombre del almacén
+            {t('warehouse.create.form.title')}
           </label>
           <input
             id="name"
@@ -71,7 +75,7 @@ export const CreateWarehouseForm = ({ location, onClose }: CreateWarehouseFormPr
             className="w-full px-3 py-2 border border-gray-300 rounded-md 
               focus:outline-none focus:ring-2 focus:ring-blue-500 
               focus:border-transparent"
-            placeholder="Introduce el nombre del almacén"
+            placeholder={t('warehouse.create.form.namePlaceholder')}
           />
           {errors.name && <p className="text-sm text-red-500">{errors.name.message}</p>}
         </div>
@@ -81,8 +85,12 @@ export const CreateWarehouseForm = ({ location, onClose }: CreateWarehouseFormPr
 
         {location && (
           <div className="text-sm text-gray-500">
-            <p>Latitud: {location.lat.toFixed(6)}</p>
-            <p>Longitud: {location.lng.toFixed(6)}</p>
+            <p>
+              {t('common.latitude')}: {location.lat.toFixed(6)}
+            </p>
+            <p>
+              {t('common.longitude')}: {location.lng.toFixed(6)}
+            </p>
           </div>
         )}
       </div>
@@ -95,7 +103,7 @@ export const CreateWarehouseForm = ({ location, onClose }: CreateWarehouseFormPr
             bg-white border border-gray-300 rounded-md hover:bg-gray-50 
             focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
-          Cancelar
+          {t('common.cancel')}
         </button>
         <button
           type="submit"
@@ -105,7 +113,7 @@ export const CreateWarehouseForm = ({ location, onClose }: CreateWarehouseFormPr
             focus:outline-none focus:ring-2 focus:ring-blue-500
             disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {isSubmitting ? 'Creando...' : 'Crear'}
+          {isSubmitting ? t('common.creating') : t('common.create')}
         </button>
       </div>
     </form>
