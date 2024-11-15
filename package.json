@@ -1,7 +1,7 @@
 {
   "name": "voluntary-warehouse",
   "description": "Web platform designed to assist in the organization and distribution of essential resources by volunteers to victims of disasters and emergencies.",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -9,6 +9,8 @@
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "npx eslint --fix",
+    "i18n:sync": "sync-i18n --f 'locales/*.json' --p es --l ca en --fn --e --s '  '",
+    "i18n:check": "npm run i18n:sync -- --c",
     "prepare": "husky"
   },
   "lint-staged": {
@@ -25,6 +27,7 @@
     "leaflet": "^1.9.4",
     "lucide-react": "^0.456.0",
     "next": "15.0.3",
+    "next-intl": "^3.25.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.53.2",
@@ -52,6 +55,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "husky": "^9.1.6",
+    "i18next-json-sync": "^3.1.2",
     "lint-staged": "^15.2.10",
     "postcss": "^8",
     "prettier": "^3.3.3",

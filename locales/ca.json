@@ -1,0 +1,23 @@
+{
+  "common": {
+    "cancel": "Cancel·lar",
+    "create": "Crear",
+    "creating": "Creant...",
+    "latitude": "Latitud",
+    "longitude": "Longitud"
+  },
+  "warehouse": {
+    "create": {
+      "form": {
+        "nameLabel": "Nom del magatzem",
+        "namePlaceholder": "Introdueix el nom del magatzem",
+        "title": "Crear Nou Magatzem"
+      },
+      "toasts": {
+        "creating": "Creant magatzem...",
+        "creationError": "Error en crear el magatzem",
+        "creationSuccess": "Magatzem creat correctament"
+      }
+    }
+  }
+}

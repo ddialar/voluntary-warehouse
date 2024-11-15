@@ -1,0 +1,23 @@
+{
+  "common": {
+    "cancel": "Cancel",
+    "create": "Create",
+    "creating": "Creating...",
+    "latitude": "Latitude",
+    "longitude": "Longitude"
+  },
+  "warehouse": {
+    "create": {
+      "form": {
+        "nameLabel": "Warehouse name",
+        "namePlaceholder": "Enter warehouse name",
+        "title": "Create New Warehouse"
+      },
+      "toasts": {
+        "creating": "Creating warehouse...",
+        "creationError": "Error creating warehouse",
+        "creationSuccess": "Warehouse created successfully"
+      }
+    }
+  }
+}

@@ -1,5 +1,7 @@
 import { toaster } from '@modules/core/components/toaster'
 import type { Metadata } from 'next'
+import { NextIntlClientProvider } from 'next-intl'
+import { getLocale, getMessages } from 'next-intl/server'
 import localFont from 'next/font/local'
 import './globals.css'
 
@@ -15,20 +17,25 @@ const geistMono = localFont({
 })
 
 export const metadata: Metadata = {
-  title: 'Almacén Voluntario',
-  description: 'Gestión de almacenes para organizaciones benéficas'
+  title: 'Voluntary Warehouse',
+  description: 'Warehouse management for charities'
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const locale = await getLocale()
+  const messages = await getMessages()
+
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {children}
-        <toaster.ToasterContainer />
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          {children}
+          <toaster.ToasterContainer />
+        </NextIntlClientProvider>
       </body>
     </html>
   )
