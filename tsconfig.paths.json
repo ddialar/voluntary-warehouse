@@ -8,6 +8,9 @@
       "@config": [
         "./src/config"
       ],
+      "@db": [
+        "./src/lib/database"
+      ],
       "@errors": [
         "./src/modules/core/errors"
       ],
