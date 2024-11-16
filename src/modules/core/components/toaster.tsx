@@ -1,4 +1,4 @@
-import { ToastContainer, toast, Flip } from 'react-toastify'
+import { Flip, ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 /**
@@ -32,13 +32,15 @@ import 'react-toastify/dist/ReactToastify.css'
 type ToastId = string | number
 
 const loading = (message: string) => toast.loading(message)
-const success = (toastId: ToastId, message: string) => toast.update(toastId, { render: message, type: 'success', isLoading: false, autoClose: 2000, delay: 50 })
-const error = (toastId: ToastId, message: string) => toast.update(toastId, { render: message, type: 'error', isLoading: false, autoClose: 3000, delay: 50 })
+const success = (toastId: ToastId, message: string) =>
+  toast.update(toastId, { render: message, type: 'success', isLoading: false, autoClose: 3000, delay: 50 })
+const error = (toastId: ToastId, message: string) =>
+  toast.update(toastId, { render: message, type: 'error', isLoading: false, autoClose: 5000, delay: 50 })
 const directError = (message: string) => toast.error(message, { isLoading: false, autoClose: 5000, delay: 50 })
 
 const ToasterContainer = () => (
   <ToastContainer
-    position='bottom-right'
+    position="bottom-right"
     autoClose={1}
     hideProgressBar={false}
     newestOnTop
@@ -47,7 +49,7 @@ const ToasterContainer = () => (
     pauseOnFocusLoss={false}
     draggable
     pauseOnHover={false}
-    theme='dark'
+    theme="dark"
     transition={Flip}
   />
 )
