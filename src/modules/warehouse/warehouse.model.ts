@@ -7,10 +7,12 @@ export interface Warehouse {
   lng: number
   address: string
   createdBy: string
-  active: boolean
+  isActive: boolean
   createdAt: Date
   updatedAt: Date
 }
+
+export type NewWarehouse = Pick<Warehouse, 'code' | 'name' | 'lat' | 'lng' | 'address' | 'createdBy' | 'isActive'>
 
 export interface WarehouseAssociation {
   id: string
@@ -20,4 +22,4 @@ export interface WarehouseAssociation {
   disassociatedAt?: Date
 }
 
-export type NewWarehousePayload = Omit<Location, 'address'> & Pick<Warehouse, 'name'>
+export type NewWarehousePayload = Pick<Warehouse, 'lat' | 'lng' | 'name'>
