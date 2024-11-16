@@ -50,10 +50,8 @@ export const CreateWarehouseForm = ({ location, onClose }: CreateWarehouseFormPr
 
     const result = await createWarehouse(data)
     if (result.success) {
-      // toaster.success(toasterId, 'Almacén creado correctamente')
-      toaster.success(toasterId, t('warehouse.create.toasts.creationSuceess'))
+      toaster.success(toasterId, t('warehouse.create.toasts.creationSuccess'))
     } else {
-      // toaster.error(toasterId, 'Error al crear el almacén')
       toaster.error(toasterId, t('warehouse.create.toasts.creationError'))
     }
 
