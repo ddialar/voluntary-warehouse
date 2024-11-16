@@ -7,7 +7,9 @@ INSERT INTO public.warehouse (
   lng,
   address,
   "createdBy",
-  "isActive"
+  "isActive",
+  "createdAt",
+  "updatedAt"
 ) VALUES
   (
     '001',
@@ -16,7 +18,9 @@ INSERT INTO public.warehouse (
     -0.4175,
     'Polígono Industrial La Pascualeta, Paiporta',
     'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
-    true
+    true,
+    '2024-10-01T10:00:00.000Z',
+    '2024-10-01T10:00:00.000Z'
   ),
   (
     '002',
@@ -25,7 +29,9 @@ INSERT INTO public.warehouse (
     -0.4027,
     'Polígono Industrial El Bony, Catarroja',
     'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
-    true
+    true,
+    '2024-10-01T10:10:00.000Z',
+    '2024-10-01T10:10:00.000Z'
   ),
   (
     '003',
@@ -34,7 +40,9 @@ INSERT INTO public.warehouse (
     -0.3775,
     'Polígono Industrial Rabisancho, Alfafar',
     'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
-    true
+    true,
+    '2024-10-01T10:20:00.000Z',
+    '2024-10-01T10:20:00.000Z'
   ),
   (
     '004',
@@ -43,7 +51,9 @@ INSERT INTO public.warehouse (
     -0.3839,
     'Polígono Industrial Sedaví, Av. del Mediterráneo',
     'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
-    true
+    true,
+    '2024-10-01T10:30:00.000Z',
+    '2024-10-01T10:30:00.000Z'
   ),
   (
     '005',
@@ -52,7 +62,9 @@ INSERT INTO public.warehouse (
     -0.4119,
     'Polígono Industrial Juan Peris, Albal',
     'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
-    true
+    true,
+    '2024-10-01T10:40:00.000Z',
+    '2024-10-01T10:40:00.000Z'
   ),
   (
     '006',
@@ -61,7 +73,9 @@ INSERT INTO public.warehouse (
     -0.4477,
     'Polígono Industrial Mas del Jutge, Torrent',
     'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
-    true
+    true,
+    '2024-10-01T10:50:00.000Z',
+    '2024-10-01T10:50:00.000Z'
   ),
   (
     '007',
@@ -70,7 +84,9 @@ INSERT INTO public.warehouse (
     -0.4594,
     'Polígono Industrial El Toll i L''Alberca, Torrent',
     'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
-    false
+    false,
+    '2024-10-01T11:00:00.000Z',
+    '2024-10-01T11:00:00.000Z'
   ),
   (
     '008',
@@ -79,7 +95,9 @@ INSERT INTO public.warehouse (
     -0.4336,
     'Polígono Industrial Alquería de Moret, Picanya',
     'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
-    true
+    true,
+    '2024-10-01T11:10:00.000Z',
+    '2024-10-01T11:10:00.000Z'
   ),
   (
     '009',
@@ -88,7 +106,9 @@ INSERT INTO public.warehouse (
     -0.4147,
     'Polígono Industrial La Mina, Paiporta',
     'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
-    true
+    true,
+    '2024-10-01T11:20:00.000Z',
+    '2024-10-01T11:20:00.000Z'
   ),
   (
     '010',
@@ -97,5 +117,7 @@ INSERT INTO public.warehouse (
     -0.4367,
     'Polígono Industrial Faitanar, Picanya',
     'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
-    true
+    true,
+    '2024-10-01T11:30:00.000Z',
+    '2024-10-01T11:30:00.000Z'
   );
