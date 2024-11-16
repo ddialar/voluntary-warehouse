@@ -155,7 +155,7 @@ const Map = ({
 
     // Add warehouse markers
     warehouses.forEach(warehouse => {
-      const marker = L.marker([warehouse.location.lat, warehouse.location.lng]).addTo(mapRef.current!)
+      const marker = L.marker([warehouse.lat, warehouse.lng]).addTo(mapRef.current!)
 
       const popupContent = document.createElement('div')
       popupContent.className = 'p-2'
@@ -166,7 +166,7 @@ const Map = ({
 
       const address = document.createElement('p')
       address.className = 'text-sm mb-2'
-      address.textContent = warehouse.location.address
+      address.textContent = warehouse.address
 
       const button = document.createElement('button')
       button.className = 'px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 w-full'
