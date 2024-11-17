@@ -15,6 +15,15 @@ INSERT INTO public.user (
     true,
     '2024-10-01T10:00:00.000Z',
     '2024-10-01T10:00:00.000Z'
+  ),
+  (
+    '2b2b2b2b-2b2b-2b2b-2b2b-2b2b2b2b2b2b',
+    'Testing User',
+    'test@mail.com',
+    'volunteer',
+    true,
+    '2024-10-01T10:00:00.000Z',
+    '2024-10-01T10:00:00.000Z'
   );
 
 INSERT INTO public.warehouse (
