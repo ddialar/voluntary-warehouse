@@ -24,7 +24,7 @@ export const MapView = ({ onWarehouseCreate }: MapViewProps) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [newWarehouseLocation, setNewWarehouseLocation] = useState<{ lat: number; lng: number }>({ lat: 0, lng: 0 })
 
-  const handleWarehouseAssociation = async (warehouse: Warehouse) => {
+  const handleAssignUserToWarehouse = async (warehouse: Warehouse) => {
     const toastId = toaster.loading('Asociando almacén...')
 
     try {
@@ -54,7 +54,7 @@ export const MapView = ({ onWarehouseCreate }: MapViewProps) => {
           center={DEFAULT_LOCATION}
           warehouses={warehouses}
           userLocation={DEFAULT_LOCATION}
-          onWarehouseSelect={handleWarehouseAssociation}
+          onWarehouseSelect={handleAssignUserToWarehouse}
           onCreateWarehouse={onCreateWarehouse}
           onCreateOrder={onCreateOrder}
         />

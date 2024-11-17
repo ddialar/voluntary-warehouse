@@ -7,19 +7,13 @@ export interface Warehouse {
   lng: number
   address: string
   createdBy: string
-  isActive: boolean
+  isEnabled: boolean
+  isDeleted: boolean
   createdAt: Date
   updatedAt: Date
+  deletedAt: Date
 }
 
-export type NewWarehouse = Pick<Warehouse, 'code' | 'name' | 'lat' | 'lng' | 'address' | 'createdBy' | 'isActive'>
-
-export interface WarehouseAssociation {
-  id: string
-  userId: string
-  warehouseId: string
-  associatedAt: Date
-  disassociatedAt?: Date
-}
+export type NewWarehouse = Pick<Warehouse, 'code' | 'name' | 'lat' | 'lng' | 'address' | 'createdBy'>
 
 export type NewWarehousePayload = Pick<Warehouse, 'lat' | 'lng' | 'name'>

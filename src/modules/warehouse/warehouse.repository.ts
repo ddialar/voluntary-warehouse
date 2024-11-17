@@ -34,10 +34,13 @@ const getWarehouseByLocation = async (location: { lat: number; lng: number }): P
   return Promise.resolve(null)
 }
 
+const rollbackWarehouse = async (warehouseId: string): Promise<void> => WarehouseStore.rollbackWarehouse(warehouseId)
+
 export const WarehouseRepository = {
   createWarehouse,
   getWarehouses,
   getLastCreatedWarehouse,
   countWarehousesCreatedTodayByUserId,
-  getWarehouseByLocation
+  getWarehouseByLocation,
+  rollbackWarehouse
 }

@@ -6,7 +6,7 @@ const { OK } = StatusCodes
 
 const createWarehouse = async (req: NextApiRequest, res: NextApiResponse<unknown>) => {
   // REFACTOR: Retrieve the user's id (maybe it could be handled in the ensureAuthenticated middleware)
-  const userId = '26c951b9-c62f-41f6-a489-0196bf7c0935'
+  const userId = '2b2b2b2b-2b2b-2b2b-2b2b-2b2b2b2b2b2b' // Testing user id
   // TODO: Check if the user is enabled (maybe it could be handled in the ensureAuthenticated middleware)
 
   const payload = req.body as { name: string; lat: number; lng: number }

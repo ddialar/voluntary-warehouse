@@ -162,7 +162,7 @@ const Map = ({
 
       const title = document.createElement('h3')
       title.className = 'font-bold'
-      title.textContent = warehouse.name
+      title.textContent = [warehouse.code, warehouse.name].join(' - ')
 
       const address = document.createElement('p')
       address.className = 'text-sm mb-2'

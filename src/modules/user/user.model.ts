@@ -1,6 +1,6 @@
 export const USER_ROLES = ['super_admin', 'admin', 'volunteer', 'user'] as const
 
-export type UserRole = typeof USER_ROLES[number]
+export type UserRole = (typeof USER_ROLES)[number]
 
 export const USER_ROLE_VALUES: Record<UserRole, number> = {
   super_admin: 100,
@@ -10,13 +10,14 @@ export const USER_ROLE_VALUES: Record<UserRole, number> = {
 }
 
 export interface User {
-  id: string;
-  fullName: string;
-  email: string;
-  role: UserRole;
-  active: boolean;
-  currentWarehouseId?: string;
-  disabled: boolean;
-  createdAt: Date;
-  updatedAt: Date;
+  id: string
+  fullName: string
+  email: string
+  role: UserRole
+  currentWarehouseId?: string
+  isEnabled: boolean
+  isDeleted: boolean
+  createdAt: Date
+  updatedAt: Date
+  deletedAt: Date
 }
