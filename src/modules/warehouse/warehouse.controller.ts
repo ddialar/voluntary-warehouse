@@ -1,4 +1,5 @@
 import { MAX_AMOUNT_OF_WAREHOUSES_PER_DAY } from '@config'
+import { UserWarehouseEnrollmentController } from '@modules/userWarehouseEnrollment/userWarehouseEnrollment.controller'
 import { NewWarehouse, Warehouse } from '@modules/warehouse/warehouse.model'
 import { WarehouseRepository } from '@modules/warehouse/warehouse.repository'
 import { MaximumAmountOfCreatedWarehousesReachedError } from './errors'
@@ -40,6 +41,8 @@ const createWarehouse = async ({ name, lat, lng, userId }: CreateWarehouseProps)
   await throwErrorIfUserCannotCreateMoreWarehousesToday(userId)
   await throwErrorIfThereAreOtherWarehousesNearby({ lat, lng })
 
+  let persistedWarehouse: Warehouse
+
   try {
     const code = await getNextWarehouseCode()
     const warehouse: NewWarehouse = {
@@ -52,10 +55,19 @@ const createWarehouse = async ({ name, lat, lng, userId }: CreateWarehouseProps)
       createdBy: userId
     }
 
-    return await WarehouseRepository.createWarehouse(warehouse)
+    persistedWarehouse = await WarehouseRepository.createWarehouse(warehouse)
   } catch (error) {
     throw new Error(`Error al crear el almacén. ${(<Error>error).message}`)
   }
+
+  try {
+    await UserWarehouseEnrollmentController.enrollUserToWarehouse({ userId, warehouseId: persistedWarehouse.id })
+  } catch (error) {
+    await WarehouseRepository.rollbackWarehouse(persistedWarehouse.id)
+    throw error
+  }
+
+  return persistedWarehouse
 }
 
 const getWarehouses = async (): Promise<Array<Warehouse>> => WarehouseRepository.getWarehouses()
