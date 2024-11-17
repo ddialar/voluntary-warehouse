@@ -49,8 +49,7 @@ const createWarehouse = async ({ name, lat, lng, userId }: CreateWarehouseProps)
       lng,
       // REFACTOR Provide this data from the creation process
       address: '',
-      createdBy: userId,
-      isActive: true
+      createdBy: userId
     }
 
     return await WarehouseRepository.createWarehouse(warehouse)
