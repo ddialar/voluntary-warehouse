@@ -13,10 +13,12 @@ create table public.warehouse (
     lng double precision not null,
     lat double precision not null,
     address text null,
-    "isActive" boolean not null default true,
+    "isEnabled" boolean not null default true,
+    "isDeleted" boolean not null default false,
     "createdBy" uuid not null default gen_random_uuid (),
-    "createdAt" timestamp with time zone default now(),
-    "updatedAt" timestamp with time zone default now(),
+    "createdAt" timestamp with time zone not null default now(),
+    "updatedAt" timestamp with time zone not null default now(),
+    "deletedAt" timestamp with time zone default null,
     constraint warehouse_pkey primary key (id)
 );
 
