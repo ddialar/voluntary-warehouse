@@ -9,6 +9,7 @@
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "npx eslint --fix",
+    "db:reset:dev": "supabase db reset",
     "i18n:sync": "sync-i18n --f 'locales/*.json' --p es --l ca en --fn --e --s '  '",
     "i18n:check": "npm run i18n:sync -- --c",
     "prepare": "husky"
