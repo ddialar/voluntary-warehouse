@@ -64,9 +64,19 @@ const countWarehousesCreatedTodayByUserId = async ({
   }
 }
 
+const rollbackWarehouse = async (warehouseId: string) => {
+  const { error } = await db.from(Entity).delete().eq('id', warehouseId).throwOnError()
+
+  if (error) {
+    console.error(`Error deleting warehouse '${warehouseId}'`, error)
+    throw error
+  }
+}
+
 export const WarehouseStore = {
   createWarehouse,
   getWarehouses,
   getLastCreatedWarehouse,
-  countWarehousesCreatedTodayByUserId
+  countWarehousesCreatedTodayByUserId,
+  rollbackWarehouse
 }
