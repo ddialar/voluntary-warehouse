@@ -1,4 +1,21 @@
-TRUNCATE TABLE public.warehouse;
+INSERT INTO public.user (
+  id,
+  "fullName",
+  email,
+  role,
+  "isEnabled",
+  "createdAt",
+  "updatedAt"
+) VALUES
+  (
+    'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
+    'Super Admin',
+    'superadmin@mail.com',
+    'super_admin',
+    true,
+    '2024-10-01T10:00:00.000Z',
+    '2024-10-01T10:00:00.000Z'
+  );
 
 INSERT INTO public.warehouse (
   id,
@@ -132,3 +149,4 @@ INSERT INTO public.warehouse (
     '2024-10-01T11:30:00.000Z',
     '2024-10-01T11:30:00.000Z'
   );
+
