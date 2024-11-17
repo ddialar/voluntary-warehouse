@@ -21,11 +21,3 @@ export interface User {
   updatedAt: Date
   deletedAt: Date
 }
-
-export interface UserWarehouseMapItem {
-  id: string
-  userId: string
-  warehouseId: string
-  associatedAt: Date
-  disassociatedAt?: Date
-}
