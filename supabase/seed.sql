@@ -1,17 +1,19 @@
 TRUNCATE TABLE public.warehouse;
 
 INSERT INTO public.warehouse (
+  id,
   code,
   name,
   lat,
   lng,
   address,
   "createdBy",
-  "isActive",
+  "isEnabled",
   "createdAt",
   "updatedAt"
 ) VALUES
   (
+    '1a1a1a1a-1a1a-1a1a-1a1a-1a1a1a1a1a1a',
     '001',
     'Almacén Paiporta Principal',
     39.4286,
@@ -23,6 +25,7 @@ INSERT INTO public.warehouse (
     '2024-10-01T10:00:00.000Z'
   ),
   (
+    '2b2b2b2b-2b2b-2b2b-2b2b-2b2b2b2b2b2b',
     '002',
     'Centro Logístico Catarroja',
     39.4036,
@@ -34,6 +37,7 @@ INSERT INTO public.warehouse (
     '2024-10-01T10:10:00.000Z'
   ),
   (
+    '3c3c3c3c-3c3c-3c3c-3c3c-3c3c3c3c3c3c',
     '003',
     'Almacén Alfafar',
     39.4225,
@@ -45,6 +49,7 @@ INSERT INTO public.warehouse (
     '2024-10-01T10:20:00.000Z'
   ),
   (
+    '4d4d4d4d-4d4d-4d4d-4d4d-4d4d4d4d4d4d',
     '004',
     'Centro Distribución Sedaví',
     39.4256,
@@ -56,6 +61,7 @@ INSERT INTO public.warehouse (
     '2024-10-01T10:30:00.000Z'
   ),
   (
+    '5e5e5e5e-5e5e-5e5e-5e5e-5e5e5e5e5e5e',
     '005',
     'Almacén Albal Norte',
     39.3947,
@@ -67,6 +73,7 @@ INSERT INTO public.warehouse (
     '2024-10-01T10:40:00.000Z'
   ),
   (
+    '6f6f6f6f-6f6f-6f6f-6f6f-6f6f6f6f6f6f',
     '006',
     'Logística Torrent Mas del Jutge',
     39.4320,
@@ -78,6 +85,7 @@ INSERT INTO public.warehouse (
     '2024-10-01T10:50:00.000Z'
   ),
   (
+    '7a7a7a7a-7a7a-7a7a-7a7a-7a7a7a7a7a7a',
     '007',
     'Centro Logístico Torrent Sur',
     39.4173,
@@ -89,6 +97,7 @@ INSERT INTO public.warehouse (
     '2024-10-01T11:00:00.000Z'
   ),
   (
+    '8b8b8b8b-8b8b-8b8b-8b8b-8b8b8b8b8b8b',
     '008',
     'Almacén Picanya Principal',
     39.4359,
@@ -100,6 +109,7 @@ INSERT INTO public.warehouse (
     '2024-10-01T11:10:00.000Z'
   ),
   (
+    '9c9c9c9c-9c9c-9c9c-9c9c-9c9c9c9c9c9c',
     '009',
     'Almacén Paiporta Sur',
     39.4234,
@@ -111,6 +121,7 @@ INSERT INTO public.warehouse (
     '2024-10-01T11:20:00.000Z'
   ),
   (
+    '10d10d10-10d1-10d1-10d1-10d10d10d10d',
     '010',
     'Centro Logístico Picanya Sur',
     39.4312,
