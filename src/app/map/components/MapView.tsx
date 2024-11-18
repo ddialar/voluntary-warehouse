@@ -20,7 +20,7 @@ interface MapViewProps {
 }
 
 export const MapView = ({ onWarehouseCreate }: MapViewProps) => {
-  const { warehouses } = useWarehouses()
+  const { warehouses, unenroll } = useWarehouses()
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [newWarehouseLocation, setNewWarehouseLocation] = useState<{ lat: number; lng: number }>({ lat: 0, lng: 0 })
 
@@ -38,11 +38,11 @@ export const MapView = ({ onWarehouseCreate }: MapViewProps) => {
   const handleUnenrollUserToWarehouse = async (warehouse: Warehouse) => {
     const toastId = toaster.loading('Desasociando almacén...')
 
-    try {
-      // await associateWithWarehouse({ userId: 'testing-user-id', warehouseId: warehouse.id })
+    const result = await unenroll({ warehouseId: warehouse.id })
+    if (result.success) {
       toaster.success(toastId, `Te has desasociado al almacén ${warehouse.name}`)
-    } catch (error) {
-      toaster.error(toastId, error instanceof Error ? error.message : 'Error al desasociarte del almacén')
+    } else {
+      toaster.error(toastId, `Error al desasociarte del almacén ${warehouse.name}`)
     }
   }
 
