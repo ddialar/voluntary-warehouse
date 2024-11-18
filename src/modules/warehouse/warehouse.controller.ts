@@ -82,7 +82,16 @@ const getWarehouses = async (userId: string): Promise<Array<Warehouse & { isEnro
   return warehouses
 }
 
+const getWarehouseById = async (warehouseId: string): Promise<Warehouse | null> => {
+  try {
+    return await WarehouseRepository.getWarehouseById(warehouseId)
+  } catch (error) {
+    throw new Error(`Error retrieving warehouse '${warehouseId}'. ${(<Error>error).message}`)
+  }
+}
+
 export const WarehouseController = {
   createWarehouse,
-  getWarehouses
+  getWarehouses,
+  getWarehouseById
 }
