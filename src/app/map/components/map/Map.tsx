@@ -1,6 +1,6 @@
 'use client'
 
-import { Warehouse } from '@modules/warehouse/warehouse.model'
+import { MapWarehouse, Warehouse } from '@modules/warehouse/warehouse.model'
 import L from 'leaflet'
 import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png'
 import markerIcon from 'leaflet/dist/images/marker-icon.png'
@@ -9,9 +9,8 @@ import 'leaflet/dist/leaflet.css'
 import { useTranslations } from 'next-intl'
 import { useCallback, useEffect, useRef } from 'react'
 import { createRoot } from 'react-dom/client'
-import { ActiveWarehousePopup } from './components'
+import { ActiveWarehousePopup, EnrolledWarehouseIcon, NewWarehouseIcon, WarehouseIcon } from './components'
 import { NewLocationPopup } from './components/NewLocationPopup'
-import { DefaultIcon } from './components/icons'
 
 type IconDefaultPrototype = typeof L.Icon.Default.prototype & {
   _getIconUrl?: (name: string) => string
@@ -27,7 +26,7 @@ L.Icon.Default.mergeOptions({
 
 interface LeafletMapProps {
   center: [number, number]
-  warehouses: Warehouse[]
+  warehouses: MapWarehouse[]
   userLocation: [number, number] | null
   onEnroll: (warehouse: Warehouse) => void
   onUnenroll: (warehouse: Warehouse) => void
@@ -103,7 +102,7 @@ const Map = ({
         }
 
         // Create new temporary marker
-        tempMarkerRef.current = L.marker([lat, lng], { icon: DefaultIcon }).addTo(mapRef.current!)
+        tempMarkerRef.current = L.marker([lat, lng], { icon: NewWarehouseIcon }).addTo(mapRef.current!)
 
         tempMarkerRef.current.on('popupclose', () => {
           if (tempMarkerRef.current) {
@@ -180,7 +179,7 @@ const Map = ({
 
     // Add warehouse markers
     warehouses.forEach(warehouse => {
-      L.marker([warehouse.lat, warehouse.lng], { icon: DefaultIcon })
+      L.marker([warehouse.lat, warehouse.lng], { icon: warehouse.isEnrolled ? EnrolledWarehouseIcon : WarehouseIcon })
         .bindPopup(createWarehousePopup(warehouse))
         .addTo(mapRef.current!)
     })

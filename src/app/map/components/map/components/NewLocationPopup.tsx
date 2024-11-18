@@ -12,7 +12,7 @@ interface LocationPopupProps {
 }
 
 export const NewLocationPopup = ({ lat, lng, onCreateWarehouse, onCreateOrder, translations }: LocationPopupProps) => (
-  <div className="p-4">
+  <div className="p-4 bottom-[40px]">
     <div className="flex flex-col gap-2">
       <button
         className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 text-sm font-medium w-full"
