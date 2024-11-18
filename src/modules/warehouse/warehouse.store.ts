@@ -23,6 +23,16 @@ const getWarehouses = async (): Promise<Array<Warehouse>> => {
   return data as Array<Warehouse>
 }
 
+const getWarehouseById = async (warehouseId: string): Promise<Warehouse | null> => {
+  const { data, error } = await db.from(Entity).select().eq('id', warehouseId).limit(1).single().throwOnError()
+
+  if (error) {
+    console.error('Error fetching warehouse:', error.message)
+  }
+
+  return data as Warehouse | null
+}
+
 interface GetWarehousesCreatedTodayByUserIdParams {
   createdBy: string
   startDate: Date
@@ -76,6 +86,7 @@ const rollbackWarehouse = async (warehouseId: string) => {
 export const WarehouseStore = {
   createWarehouse,
   getWarehouses,
+  getWarehouseById,
   getLastCreatedWarehouse,
   countWarehousesCreatedTodayByUserId,
   rollbackWarehouse

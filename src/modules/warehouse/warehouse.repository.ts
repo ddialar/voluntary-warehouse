@@ -5,6 +5,9 @@ const createWarehouse = async (warehouse: NewWarehouse): Promise<Warehouse> => W
 
 const getWarehouses = async (): Promise<Array<Warehouse>> => WarehouseStore.getWarehouses()
 
+const getWarehouseById = async (warehouseId: string): Promise<Warehouse | null> =>
+  WarehouseStore.getWarehouseById(warehouseId)
+
 const countWarehousesCreatedTodayByUserId = async (
   params: Parameters<typeof WarehouseStore.countWarehousesCreatedTodayByUserId>[0]
 ): Promise<number> => WarehouseStore.countWarehousesCreatedTodayByUserId(params)
@@ -39,6 +42,7 @@ const rollbackWarehouse = async (warehouseId: string): Promise<void> => Warehous
 export const WarehouseRepository = {
   createWarehouse,
   getWarehouses,
+  getWarehouseById,
   getLastCreatedWarehouse,
   countWarehousesCreatedTodayByUserId,
   getWarehouseByLocation,

@@ -1,14 +1,16 @@
 'use client'
 
-import { Warehouse } from '@modules/warehouse/warehouse.model'
+import { MapWarehouse, Warehouse } from '@modules/warehouse/warehouse.model'
 import L from 'leaflet'
 import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png'
 import markerIcon from 'leaflet/dist/images/marker-icon.png'
 import markerShadow from 'leaflet/dist/images/marker-shadow.png'
 import 'leaflet/dist/leaflet.css'
-import { useEffect, useRef } from 'react'
+import { useTranslations } from 'next-intl'
+import { useCallback, useEffect, useRef } from 'react'
 import { createRoot } from 'react-dom/client'
-import { NewLocationPopup } from './NewLocationPopup'
+import { ActiveWarehousePopup, EnrolledWarehouseIcon, NewWarehouseIcon, WarehouseIcon } from './components'
+import { NewLocationPopup } from './components/NewLocationPopup'
 
 type IconDefaultPrototype = typeof L.Icon.Default.prototype & {
   _getIconUrl?: (name: string) => string
@@ -24,9 +26,10 @@ L.Icon.Default.mergeOptions({
 
 interface LeafletMapProps {
   center: [number, number]
-  warehouses: Warehouse[]
+  warehouses: MapWarehouse[]
   userLocation: [number, number] | null
-  onWarehouseSelect: (warehouse: Warehouse) => void
+  onEnroll: (warehouse: Warehouse) => void
+  onUnenroll: (warehouse: Warehouse) => void
   onCreateWarehouse: (location: { lat: number; lng: number }) => void
   onCreateOrder: (location: { lat: number; lng: number }) => void
 }
@@ -35,13 +38,44 @@ const Map = ({
   center,
   warehouses,
   userLocation,
-  onWarehouseSelect,
+  onEnroll,
+  onUnenroll,
   onCreateWarehouse,
   onCreateOrder
 }: LeafletMapProps) => {
+  const t = useTranslations()
   const mapRef = useRef<L.Map | null>(null)
   const mapContainerRef = useRef<HTMLDivElement>(null)
   const tempMarkerRef = useRef<L.Marker | null>(null)
+
+  const newMarkerTranslations = {
+    createWarehouse: t('warehouse.popup.createWarehouse'),
+    createOrder: t('warehouse.popup.createOrder')
+  }
+
+  const createWarehousePopup = useCallback(
+    (warehouse: MapWarehouse): HTMLElement => {
+      const container = document.createElement('div')
+      const root = createRoot(container)
+
+      root.render(
+        <ActiveWarehousePopup
+          title={`${warehouse.code} - ${warehouse.name}`}
+          address={warehouse.address}
+          isUserEnrolled={warehouse.isEnrolled}
+          onEnroll={() => onEnroll(warehouse)}
+          onUnenroll={() => onUnenroll(warehouse)}
+          translations={{
+            enroll: t('warehouse.popup.enroll'),
+            unenroll: t('warehouse.popup.unenroll')
+          }}
+        />
+      )
+
+      return container
+    },
+    [onEnroll, onUnenroll, t]
+  )
 
   useEffect(() => {
     console.log('Initializing map with center:', center)
@@ -69,17 +103,7 @@ const Map = ({
         }
 
         // Create new temporary marker
-        tempMarkerRef.current = L.marker([lat, lng], {
-          icon: L.icon({
-            iconUrl: markerIcon.src,
-            iconRetinaUrl: markerIcon2x.src,
-            shadowUrl: markerShadow.src,
-            iconSize: [25, 41],
-            iconAnchor: [12, 41],
-            popupAnchor: [1, -34],
-            shadowSize: [41, 41]
-          })
-        }).addTo(mapRef.current!)
+        tempMarkerRef.current = L.marker([lat, lng], { icon: NewWarehouseIcon }).addTo(mapRef.current!)
 
         tempMarkerRef.current.on('popupclose', () => {
           if (tempMarkerRef.current) {
@@ -111,6 +135,7 @@ const Map = ({
                 tempMarkerRef.current.closePopup()
               }
             }}
+            translations={newMarkerTranslations}
           />
         )
 
@@ -155,31 +180,11 @@ const Map = ({
 
     // Add warehouse markers
     warehouses.forEach(warehouse => {
-      const marker = L.marker([warehouse.lat, warehouse.lng]).addTo(mapRef.current!)
-
-      const popupContent = document.createElement('div')
-      popupContent.className = 'p-2'
-
-      const title = document.createElement('h3')
-      title.className = 'font-bold'
-      title.textContent = [warehouse.code, warehouse.name].join(' - ')
-
-      const address = document.createElement('p')
-      address.className = 'text-sm mb-2'
-      address.textContent = warehouse.address
-
-      const button = document.createElement('button')
-      button.className = 'px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 w-full'
-      button.textContent = 'Asociarme'
-      button.onclick = () => onWarehouseSelect(warehouse)
-
-      popupContent.appendChild(title)
-      popupContent.appendChild(address)
-      popupContent.appendChild(button)
-
-      marker.bindPopup(popupContent)
+      L.marker([warehouse.lat, warehouse.lng], { icon: warehouse.isEnrolled ? EnrolledWarehouseIcon : WarehouseIcon })
+        .bindPopup(createWarehousePopup(warehouse))
+        .addTo(mapRef.current!)
     })
-  }, [warehouses, userLocation, onWarehouseSelect])
+  }, [warehouses, userLocation, createWarehousePopup])
 
   return <div ref={mapContainerRef} className="h-full w-full" />
 }

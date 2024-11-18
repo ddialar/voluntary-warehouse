@@ -9,8 +9,8 @@ const createWarehouse = async (req: NextApiRequest, res: NextApiResponse<unknown
   const userId = '2b2b2b2b-2b2b-2b2b-2b2b-2b2b2b2b2b2b' // Testing user id
   // TODO: Check if the user is enabled (maybe it could be handled in the ensureAuthenticated middleware)
 
-  const payload = req.body as { name: string; lat: number; lng: number }
   // TODO: Validate the request payload
+  const payload = req.body as { name: string; lat: number; lng: number }
 
   console.dir({ method: 'createWarehouse handler', payload, userId }, { depth: null })
 
@@ -21,10 +21,10 @@ const createWarehouse = async (req: NextApiRequest, res: NextApiResponse<unknown
 
 const getWarehouses = async (req: NextApiRequest, res: NextApiResponse<unknown>) => {
   // TODO: Retrieve the user's id (maybe it could be handled in the ensureAuthenticated middleware)
-  // const userId = '...'
+  const userId = '2b2b2b2b-2b2b-2b2b-2b2b-2b2b2b2b2b2b' // Testing user id
   // TODO: Check if the user is enabled (maybe it could be handled in the ensureAuthenticated middleware)
 
-  const warehouses = await WarehouseController.getWarehouses()
+  const warehouses = await WarehouseController.getWarehouses(userId)
 
   return res.status(OK).json({ warehouses })
 }

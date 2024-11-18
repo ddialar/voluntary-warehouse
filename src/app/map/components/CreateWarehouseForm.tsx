@@ -46,13 +46,13 @@ export const CreateWarehouseForm = ({ location, onClose }: CreateWarehouseFormPr
 
   const onSubmit = async (data: CreateWarehouseFormData) => {
     setIsSubmitting(true)
-    const toasterId = toaster.loading(t('warehouse.create.toasts.creating'))
+    const toasterId = toaster.loading(t('warehouse.form.create.toasts.creating'))
 
     const result = await createWarehouse(data)
     if (result.success) {
-      toaster.success(toasterId, t('warehouse.create.toasts.creationSuccess'))
+      toaster.success(toasterId, t('warehouse.form.create.toasts.creationSuccess'))
     } else {
-      toaster.error(toasterId, t('warehouse.create.toasts.creationError'))
+      toaster.error(toasterId, t('warehouse.form.create.toasts.creationError'))
     }
 
     reset()
@@ -65,7 +65,7 @@ export const CreateWarehouseForm = ({ location, onClose }: CreateWarehouseFormPr
       <div className="flex-grow space-y-4">
         <div className="space-y-2">
           <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-            {t('warehouse.create.form.title')}
+            {t('warehouse.form.create.title')}
           </label>
           <input
             id="name"
@@ -73,7 +73,7 @@ export const CreateWarehouseForm = ({ location, onClose }: CreateWarehouseFormPr
             className="w-full px-3 py-2 border border-gray-300 rounded-md 
               focus:outline-none focus:ring-2 focus:ring-blue-500 
               focus:border-transparent"
-            placeholder={t('warehouse.create.form.namePlaceholder')}
+            placeholder={t('warehouse.form.create.namePlaceholder')}
           />
           {errors.name && <p className="text-sm text-red-500">{errors.name.message}</p>}
         </div>

@@ -7,17 +7,23 @@
     "longitude": "Longitud"
   },
   "warehouse": {
-    "create": {
-      "form": {
+    "form": {
+      "create": {
         "nameLabel": "Nom del magatzem",
         "namePlaceholder": "Introdueix el nom del magatzem",
-        "title": "Crear Nou Magatzem"
-      },
-      "toasts": {
-        "creating": "Creant magatzem...",
-        "creationError": "Error en crear el magatzem",
-        "creationSuccess": "Magatzem creat correctament"
+        "title": "Crear Nou Magatzem",
+        "toasts": {
+          "creating": "Creant magatzem...",
+          "creationError": "Error en crear el magatzem",
+          "creationSuccess": "Magatzem creat correctament"
+        }
       }
+    },
+    "popup": {
+      "createOrder": "Crear Comanda",
+      "createWarehouse": "Crear Magatzem",
+      "enroll": "Associar-me",
+      "unenroll": "Desvincular-me"
     }
   }
 }

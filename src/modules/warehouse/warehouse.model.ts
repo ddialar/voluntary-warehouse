@@ -14,6 +14,10 @@ export interface Warehouse {
   deletedAt: Date
 }
 
+export interface MapWarehouse extends Warehouse {
+  isEnrolled?: boolean
+}
+
 export type NewWarehouse = Pick<Warehouse, 'code' | 'name' | 'lat' | 'lng' | 'address' | 'createdBy'>
 
 export type NewWarehousePayload = Pick<Warehouse, 'lat' | 'lng' | 'name'>
