@@ -70,7 +70,17 @@ const createWarehouse = async ({ name, lat, lng, userId }: CreateWarehouseProps)
   return persistedWarehouse
 }
 
-const getWarehouses = async (): Promise<Array<Warehouse>> => WarehouseRepository.getWarehouses()
+const getWarehouses = async (userId: string): Promise<Array<Warehouse & { isEnrolled?: boolean }>> => {
+  const persistedWarehouses = await WarehouseRepository.getWarehouses()
+  const enrolledWarehouseIds = (await UserWarehouseEnrollmentController.getEnrolledWarehousesByUserId(userId)).map(
+    ({ warehouseId }) => warehouseId
+  )
+  const warehouses = persistedWarehouses.map(warehouse =>
+    enrolledWarehouseIds.includes(warehouse.id) ? { ...warehouse, isEnrolled: true } : warehouse
+  )
+
+  return warehouses
+}
 
 export const WarehouseController = {
   createWarehouse,
