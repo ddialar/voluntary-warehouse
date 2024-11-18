@@ -23,7 +23,7 @@
       "createOrder": "Crear Pedido",
       "createWarehouse": "Crear Almacén",
       "enroll": "Asociarme",
-      "unenroll": "Desasociarme"
+      "unenroll": "Desvincularme"
     }
   }
 }

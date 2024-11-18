@@ -23,7 +23,7 @@
       "createOrder": "Crear Comanda",
       "createWarehouse": "Crear Magatzem",
       "enroll": "Associar-me",
-      "unenroll": "Desassociar-me"
+      "unenroll": "Desvincular-me"
     }
   }
 }
