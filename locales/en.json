@@ -7,17 +7,23 @@
     "longitude": "Longitude"
   },
   "warehouse": {
-    "create": {
-      "form": {
+    "form": {
+      "create": {
         "nameLabel": "Warehouse name",
         "namePlaceholder": "Enter warehouse name",
-        "title": "Create New Warehouse"
-      },
-      "toasts": {
-        "creating": "Creating warehouse...",
-        "creationError": "Error creating warehouse",
-        "creationSuccess": "Warehouse created successfully"
+        "title": "Create New Warehouse",
+        "toasts": {
+          "creating": "Creating warehouse...",
+          "creationError": "Error creating warehouse",
+          "creationSuccess": "Warehouse created successfully"
+        }
       }
+    },
+    "popup": {
+      "createOrder": "Create Order",
+      "createWarehouse": "Create Warehouse",
+      "enroll": "Enroll",
+      "unenroll": "Unenroll"
     }
   }
 }

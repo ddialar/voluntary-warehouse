@@ -7,17 +7,23 @@
     "longitude": "Longitud"
   },
   "warehouse": {
-    "create": {
-      "form": {
+    "form": {
+      "create": {
         "nameLabel": "Nombre del almacén",
         "namePlaceholder": "Introduce el nombre del almacén",
-        "title": "Crear Nuevo Almacén"
-      },
-      "toasts": {
-        "creating": "Creando almacén ...",
-        "creationError": "Error al crear almacén",
-        "creationSuccess": "Almacén creado correctamente"
+        "title": "Crear Nuevo Almacén",
+        "toasts": {
+          "creating": "Creando almacén ...",
+          "creationError": "Error al crear almacén",
+          "creationSuccess": "Almacén creado correctamente"
+        }
       }
+    },
+    "popup": {
+      "createOrder": "Crear Pedido",
+      "createWarehouse": "Crear Almacén",
+      "enroll": "Asociarme",
+      "unenroll": "Desasociarme"
     }
   }
 }
