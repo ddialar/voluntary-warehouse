@@ -20,7 +20,7 @@ export const CreateWarehouseDrawer = ({ isOpen, onClose, location }: CreateWareh
         <Drawer.Content className="fixed bottom-0 right-0 h-full w-full sm:max-w-[400px] bg-white z-[1100]">
           <div className="flex flex-col h-full p-6">
             <div className="flex items-center justify-between mb-4">
-              <Drawer.Title className="text-lg font-semibold">{t('warehouse.create.form.title')}</Drawer.Title>
+              <Drawer.Title className="text-lg font-semibold">{t('warehouse.form.create.title')}</Drawer.Title>
             </div>
             <CreateWarehouseForm location={location} onClose={onClose} />
           </div>

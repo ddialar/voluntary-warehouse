@@ -10,7 +10,7 @@ import { CreateWarehouseDrawer } from './CreateWarehouseDrawer'
 
 const DEFAULT_LOCATION: [number, number] = [39.394972, -0.411931]
 
-const Map = dynamic(() => import('./Map'), {
+const Map = dynamic(() => import('./map/Map'), {
   ssr: false,
   loading: () => <div className="h-full w-full flex items-center justify-center">Cargando mapa...</div>
 })
@@ -24,15 +24,25 @@ export const MapView = ({ onWarehouseCreate }: MapViewProps) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [newWarehouseLocation, setNewWarehouseLocation] = useState<{ lat: number; lng: number }>({ lat: 0, lng: 0 })
 
-  const handleAssignUserToWarehouse = async (warehouse: Warehouse) => {
+  const handleEnrollUserToWarehouse = async (warehouse: Warehouse) => {
     const toastId = toaster.loading('Asociando almacén...')
 
     try {
       // await associateWithWarehouse({ userId: 'testing-user-id', warehouseId: warehouse.id })
       toaster.success(toastId, `Te has asociado al almacén ${warehouse.name}`)
-      onWarehouseCreate()
     } catch (error) {
-      toaster.error(toastId, error instanceof Error ? error.message : 'Error al asociarse al almacén')
+      toaster.error(toastId, error instanceof Error ? error.message : 'Error al asociarte al almacén')
+    }
+  }
+
+  const handleUnenrollUserToWarehouse = async (warehouse: Warehouse) => {
+    const toastId = toaster.loading('Desasociando almacén...')
+
+    try {
+      // await associateWithWarehouse({ userId: 'testing-user-id', warehouseId: warehouse.id })
+      toaster.success(toastId, `Te has desasociado al almacén ${warehouse.name}`)
+    } catch (error) {
+      toaster.error(toastId, error instanceof Error ? error.message : 'Error al desasociarte del almacén')
     }
   }
 
@@ -54,7 +64,8 @@ export const MapView = ({ onWarehouseCreate }: MapViewProps) => {
           center={DEFAULT_LOCATION}
           warehouses={warehouses}
           userLocation={DEFAULT_LOCATION}
-          onWarehouseSelect={handleAssignUserToWarehouse}
+          onEnroll={handleEnrollUserToWarehouse}
+          onUnenroll={handleUnenrollUserToWarehouse}
           onCreateWarehouse={onCreateWarehouse}
           onCreateOrder={onCreateOrder}
         />
