@@ -54,7 +54,7 @@ const Map = ({
   }
 
   const createWarehousePopup = useCallback(
-    (warehouse: Warehouse): HTMLElement => {
+    (warehouse: MapWarehouse): HTMLElement => {
       const container = document.createElement('div')
       const root = createRoot(container)
 
@@ -62,6 +62,7 @@ const Map = ({
         <ActiveWarehousePopup
           title={`${warehouse.code} - ${warehouse.name}`}
           address={warehouse.address}
+          isUserEnrolled={warehouse.isEnrolled}
           onEnroll={() => onEnroll(warehouse)}
           onUnenroll={() => onUnenroll(warehouse)}
           translations={{
