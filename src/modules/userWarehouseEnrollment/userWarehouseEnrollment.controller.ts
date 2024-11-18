@@ -18,6 +18,10 @@ const enrollUserToWarehouse = async ({ userId, warehouseId }: { userId: string; 
   }
 }
 
+const getEnrolledWarehousesByUserId = async (userId: string) =>
+  UserWarehouseEnrollmentRepository.getEnrolledWarehousesByUserId(userId)
+
 export const UserWarehouseEnrollmentController = {
-  enrollUserToWarehouse
+  enrollUserToWarehouse,
+  getEnrolledWarehousesByUserId
 }
