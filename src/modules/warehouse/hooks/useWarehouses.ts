@@ -8,11 +8,14 @@ const getWarehouses = async () => get<{ warehouses: Array<MapWarehouse> }>({ url
 const createWarehouse = async (data: NewWarehousePayload) =>
   post<MapWarehouse, NewWarehousePayload>({ url: WAREHOUSE_API_URI, body: data })
 
-const enrollUserAtWarehouse = async (warehouseId: string) =>
-  post<unknown, { warehouseId: string }>({ url: WAREHOUSE_ENROLL_API_URI, body: { warehouseId } })
+const enrollUserAtWarehouse = async (body: { warehouseId: string }) =>
+  post<unknown, { warehouseId: string }>({ url: WAREHOUSE_ENROLL_API_URI, body })
 
-const unenrollUserFromWarehouse = async (warehouseId: string) =>
-  put<unknown, { warehouseId: string }>({ url: WAREHOUSE_UNENROLL_API_URI, body: { warehouseId } })
+const unenrollUserFromWarehouse = async (body: { warehouseId: string }) =>
+  put<unknown, { warehouseId: string }>({ url: WAREHOUSE_UNENROLL_API_URI, body })
+
+const switchWarehouseEnrollment = async (body: { prevWarehouseId: string; nextWarehouseId: string }) =>
+  put<unknown, { prevWarehouseId: string; nextWarehouseId: string }>({ url: WAREHOUSE_UNENROLL_API_URI, body })
 
 const WAREHOUSES_KEY = 'warehouses_api'
 
@@ -47,7 +50,7 @@ export const useWarehouses = () => {
   }
 
   const enroll = async ({ warehouseId }: { warehouseId: string }) => {
-    const result = await enrollUserAtWarehouse(warehouseId)
+    const result = await enrollUserAtWarehouse({ warehouseId })
 
     if (result.success) localMutate()
 
@@ -55,7 +58,24 @@ export const useWarehouses = () => {
   }
 
   const unenroll = async ({ warehouseId }: { warehouseId: string }) => {
-    const result = await unenrollUserFromWarehouse(warehouseId)
+    const result = await unenrollUserFromWarehouse({ warehouseId })
+
+    if (result.success) localMutate()
+
+    return result
+  }
+
+  const switchEnrollment = async ({
+    prevWarehouseId,
+    nextWarehouseId
+  }: {
+    prevWarehouseId: string
+    nextWarehouseId: string
+  }) => {
+    const result = await switchWarehouseEnrollment({
+      prevWarehouseId,
+      nextWarehouseId
+    })
 
     if (result.success) localMutate()
 
@@ -69,9 +89,10 @@ export const useWarehouses = () => {
     create,
     enroll,
     unenroll,
-    isEnrolled:
+    switchEnrollment,
+    enrolledWarehouse:
       data?.result && data.result.warehouses
-        ? Boolean((data.result.warehouses as Array<MapWarehouse>).find(({ isEnrolled }) => isEnrolled))
-        : false
+        ? (data.result.warehouses as Array<MapWarehouse>).find(({ isEnrolled }) => isEnrolled)
+        : null
   }
 }
