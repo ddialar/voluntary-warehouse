@@ -91,8 +91,6 @@ const switchWarehouseEnrollment = async ({
   prevWarehouseId: string
   nextWarehouseId: string
 }) => {
-  console.dir({ userId, prevWarehouseId, nextWarehouseId }, { depth: null })
-
   try {
     const prevPersistedWarehouse = await WarehouseController.getWarehouseById(prevWarehouseId)
     if (!prevPersistedWarehouse) {
