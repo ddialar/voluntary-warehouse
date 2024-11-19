@@ -1,6 +1,7 @@
 'use client'
 
 import { DEFAULT_LOCATION } from '@config'
+import { ConfirmDialog } from '@modules/core/components'
 import { toaster } from '@modules/core/components/toaster'
 import { useWarehouses } from '@modules/warehouse/hooks'
 import { Warehouse } from '@modules/warehouse/warehouse.model'
@@ -20,11 +21,20 @@ interface MapViewProps {
 
 export const MapView = ({ onWarehouseCreate }: MapViewProps) => {
   const t = useTranslations()
-  const { warehouses, enroll, unenroll } = useWarehouses()
+  const { warehouses, enroll, unenroll, isEnrolled } = useWarehouses()
+  // REFACTOR Merge all these useState calls into a single object
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [newWarehouseLocation, setNewWarehouseLocation] = useState<{ lat: number; lng: number }>({ lat: 0, lng: 0 })
+  const [isConfirmSwitchWarehouseDialogOpen, setIsConfirmSwitchWarehouseDialogOpen] = useState(false)
+  const [selectedWarehouse, setSelectedWarehouse] = useState<Warehouse | null>(null)
 
   const handleEnrollUserAtWarehouse = async (warehouse: Warehouse) => {
+    if (isEnrolled) {
+      setSelectedWarehouse(warehouse)
+      setIsConfirmSwitchWarehouseDialogOpen(true)
+      return
+    }
+
     const toastId = toaster.loading(t('warehouse.toasts.enroll.loading'))
 
     const result = await enroll({ warehouseId: warehouse.id })
@@ -45,6 +55,21 @@ export const MapView = ({ onWarehouseCreate }: MapViewProps) => {
     } else {
       toaster.error(toastId, t('warehouse.toasts.unenroll.error', { warehouse: warehouse.name }))
     }
+  }
+
+  const handleUserSwitchWarehouse = async () => {
+    const toastId = toaster.loading(t('warehouse.toasts.switch.loading'))
+
+    setIsConfirmSwitchWarehouseDialogOpen(false)
+
+    toaster.success(toastId, t('warehouse.toasts.enroll.success', { warehouse: selectedWarehouse!.name }))
+    // const result = await enroll({ warehouseId: selectedWarehouse!.id })
+
+    // if (result.success) {
+    //   toaster.success(toastId, t('warehouse.toasts.enroll.success', { warehouse: selectedWarehouse!.name }))
+    // } else {
+    //   toaster.error(toastId, t('warehouse.toasts.enroll.error', { warehouse: selectedWarehouse!.name }))
+    // }
   }
 
   const onCreateWarehouse = (location: { lat: number; lng: number }) => {
@@ -71,13 +96,20 @@ export const MapView = ({ onWarehouseCreate }: MapViewProps) => {
           onCreateOrder={onCreateOrder}
         />
       </div>
-      <div className="absolute top-4 right-4 z-[1000]">
-        <CreateWarehouseDrawer
-          isOpen={isDrawerOpen && newWarehouseLocation !== undefined}
-          onClose={() => setIsDrawerOpen(false)}
-          location={newWarehouseLocation!}
-        />
-      </div>
+      <CreateWarehouseDrawer
+        isOpen={isDrawerOpen && newWarehouseLocation !== undefined}
+        onClose={() => setIsDrawerOpen(false)}
+        location={newWarehouseLocation!}
+      />
+      <ConfirmDialog
+        isOpen={isConfirmSwitchWarehouseDialogOpen}
+        onClose={() => setIsConfirmSwitchWarehouseDialogOpen(false)}
+        onConfirm={handleUserSwitchWarehouse}
+        title={t('warehouse.dialogs.switchWarehouse.title')}
+        question={t('warehouse.dialogs.switchWarehouse.question')}
+        cancelText={t('common.cancel')}
+        confirmText={t('common.confirm')}
+      />
     </>
   )
 }
