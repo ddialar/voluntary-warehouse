@@ -1,12 +1,12 @@
 import { WAREHOUSE_API_URI, WAREHOUSE_ENROLL_API_URI, WAREHOUSE_UNENROLL_API_URI } from '@config'
 import { get, post, put } from '@fetcher'
-import { NewWarehousePayload, Warehouse } from '@modules/warehouse/warehouse.model'
+import { MapWarehouse, NewWarehousePayload, Warehouse } from '@modules/warehouse/warehouse.model'
 import useSWR, { mutate } from 'swr'
 
-const getWarehouses = async () => get<{ warehouses: Array<Warehouse> }>({ url: WAREHOUSE_API_URI })
+const getWarehouses = async () => get<{ warehouses: Array<MapWarehouse> }>({ url: WAREHOUSE_API_URI })
 
 const createWarehouse = async (data: NewWarehousePayload) =>
-  post<Warehouse, NewWarehousePayload>({ url: WAREHOUSE_API_URI, body: data })
+  post<MapWarehouse, NewWarehousePayload>({ url: WAREHOUSE_API_URI, body: data })
 
 const enrollUserAtWarehouse = async (warehouseId: string) =>
   post<unknown, { warehouseId: string }>({ url: WAREHOUSE_ENROLL_API_URI, body: { warehouseId } })
@@ -17,7 +17,12 @@ const unenrollUserFromWarehouse = async (warehouseId: string) =>
 const WAREHOUSES_KEY = 'warehouses_api'
 
 export const useWarehouses = () => {
-  const { data, error, isLoading, mutate: localMutate } = useSWR(WAREHOUSES_KEY, getWarehouses)
+  const {
+    data,
+    error,
+    isLoading,
+    mutate: localMutate
+  } = useSWR<Awaited<ReturnType<typeof getWarehouses>>>(WAREHOUSES_KEY, getWarehouses)
 
   const create = async (payload: NewWarehousePayload) => {
     try {
@@ -63,6 +68,10 @@ export const useWarehouses = () => {
     error,
     create,
     enroll,
-    unenroll
+    unenroll,
+    isEnrolled:
+      data?.result && data.result.warehouses
+        ? Boolean((data.result.warehouses as Array<MapWarehouse>).find(({ isEnrolled }) => isEnrolled))
+        : false
   }
 }
