@@ -1,14 +1,14 @@
 'use client'
 
-// import { associateWithWarehouse } from '@/core/services/association.service'
+import { DEFAULT_LOCATION } from '@config'
+import { ConfirmDialog } from '@modules/core/components'
 import { toaster } from '@modules/core/components/toaster'
 import { useWarehouses } from '@modules/warehouse/hooks'
 import { Warehouse } from '@modules/warehouse/warehouse.model'
+import { useTranslations } from 'next-intl'
 import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import { CreateWarehouseDrawer } from './CreateWarehouseDrawer'
-
-const DEFAULT_LOCATION: [number, number] = [39.394972, -0.411931]
 
 const Map = dynamic(() => import('./map/Map'), {
   ssr: false,
@@ -20,29 +20,57 @@ interface MapViewProps {
 }
 
 export const MapView = ({ onWarehouseCreate }: MapViewProps) => {
-  const { warehouses, unenroll } = useWarehouses()
+  const t = useTranslations()
+  const { warehouses, enroll, unenroll, switchEnrollment, enrolledWarehouse } = useWarehouses()
+  // REFACTOR Merge all these useState calls into a single object
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [newWarehouseLocation, setNewWarehouseLocation] = useState<{ lat: number; lng: number }>({ lat: 0, lng: 0 })
+  const [isConfirmSwitchWarehouseDialogOpen, setIsConfirmSwitchWarehouseDialogOpen] = useState(false)
+  const [selectedWarehouse, setSelectedWarehouse] = useState<Warehouse | null>(null)
 
-  const handleEnrollUserToWarehouse = async (warehouse: Warehouse) => {
-    const toastId = toaster.loading('Asociando almacén...')
+  const handleEnrollUserAtWarehouse = async (warehouse: Warehouse) => {
+    if (enrolledWarehouse) {
+      setSelectedWarehouse(warehouse)
+      setIsConfirmSwitchWarehouseDialogOpen(true)
+      return
+    }
 
-    try {
-      // await associateWithWarehouse({ userId: 'testing-user-id', warehouseId: warehouse.id })
-      toaster.success(toastId, `Te has asociado al almacén ${warehouse.name}`)
-    } catch (error) {
-      toaster.error(toastId, error instanceof Error ? error.message : 'Error al asociarte al almacén')
+    const toastId = toaster.loading(t('warehouse.toasts.enroll.loading'))
+
+    const result = await enroll({ warehouseId: warehouse.id })
+
+    if (result.success) {
+      toaster.success(toastId, t('warehouse.toasts.enroll.success', { warehouse: warehouse.name }))
+    } else {
+      toaster.error(toastId, t('warehouse.toasts.enroll.error', { warehouse: warehouse.name }))
     }
   }
 
-  const handleUnenrollUserToWarehouse = async (warehouse: Warehouse) => {
-    const toastId = toaster.loading('Desasociando almacén...')
+  const handleUnenrollUserFromWarehouse = async (warehouse: Warehouse) => {
+    const toastId = toaster.loading(t('warehouse.toasts.unenroll.loading'))
 
     const result = await unenroll({ warehouseId: warehouse.id })
     if (result.success) {
-      toaster.success(toastId, `Te has desasociado al almacén ${warehouse.name}`)
+      toaster.success(toastId, t('warehouse.toasts.unenroll.success', { warehouse: warehouse.name }))
     } else {
-      toaster.error(toastId, `Error al desasociarte del almacén ${warehouse.name}`)
+      toaster.error(toastId, t('warehouse.toasts.unenroll.error', { warehouse: warehouse.name }))
+    }
+  }
+
+  const handleUserSwitchWarehouse = async () => {
+    const toastId = toaster.loading(t('warehouse.toasts.switch.loading'))
+
+    setIsConfirmSwitchWarehouseDialogOpen(false)
+
+    const result = await switchEnrollment({
+      prevWarehouseId: enrolledWarehouse!.id,
+      nextWarehouseId: selectedWarehouse!.id
+    })
+
+    if (result.success) {
+      toaster.success(toastId, t('warehouse.toasts.enroll.success', { warehouse: selectedWarehouse!.name }))
+    } else {
+      toaster.error(toastId, t('warehouse.toasts.enroll.error', { warehouse: selectedWarehouse!.name }))
     }
   }
 
@@ -64,19 +92,26 @@ export const MapView = ({ onWarehouseCreate }: MapViewProps) => {
           center={DEFAULT_LOCATION}
           warehouses={warehouses}
           userLocation={DEFAULT_LOCATION}
-          onEnroll={handleEnrollUserToWarehouse}
-          onUnenroll={handleUnenrollUserToWarehouse}
+          onEnroll={handleEnrollUserAtWarehouse}
+          onUnenroll={handleUnenrollUserFromWarehouse}
           onCreateWarehouse={onCreateWarehouse}
           onCreateOrder={onCreateOrder}
         />
       </div>
-      <div className="absolute top-4 right-4 z-[1000]">
-        <CreateWarehouseDrawer
-          isOpen={isDrawerOpen && newWarehouseLocation !== undefined}
-          onClose={() => setIsDrawerOpen(false)}
-          location={newWarehouseLocation!}
-        />
-      </div>
+      <CreateWarehouseDrawer
+        isOpen={isDrawerOpen && newWarehouseLocation !== undefined}
+        onClose={() => setIsDrawerOpen(false)}
+        location={newWarehouseLocation!}
+      />
+      <ConfirmDialog
+        isOpen={isConfirmSwitchWarehouseDialogOpen}
+        onClose={() => setIsConfirmSwitchWarehouseDialogOpen(false)}
+        onConfirm={handleUserSwitchWarehouse}
+        title={t('warehouse.dialogs.switchWarehouse.title')}
+        question={t('warehouse.dialogs.switchWarehouse.question')}
+        cancelText={t('common.cancel')}
+        confirmText={t('common.confirm')}
+      />
     </>
   )
 }

@@ -18,7 +18,6 @@ const getPreferredLanguage = (acceptLanguage: string): string => {
 export default getRequestConfig(async () => {
   const userLocale = (await headers()).get('Accept-Language')
   const preferredLanguage = userLocale ? getPreferredLanguage(userLocale) : DEFAULT_LOCALE
-  console.dir({ method: 'getRequestConfig', userLocale, preferredLanguage }, { depth: null })
   const locale = AVAILABLE_LOCALES.includes(preferredLanguage) ? preferredLanguage : DEFAULT_LOCALE
   const messages = (await import(`./locales/${locale}.json`)).default
 

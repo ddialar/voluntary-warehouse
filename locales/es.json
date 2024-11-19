@@ -1,12 +1,19 @@
 {
   "common": {
     "cancel": "Cancelar",
+    "confirm": "Confirmar",
     "create": "Crear",
     "creating": "Creando ...",
     "latitude": "Latitud",
     "longitude": "Longitud"
   },
   "warehouse": {
+    "dialogs": {
+      "switchWarehouse": {
+        "question": "¿Confirmas que deseas desvincularte de tu almacén actual y asociarte al nuevo que has seleccionado?",
+        "title": "Cambio de Almacén"
+      }
+    },
     "form": {
       "create": {
         "nameLabel": "Nombre del almacén",
@@ -24,6 +31,21 @@
       "createWarehouse": "Crear Almacén",
       "enroll": "Asociarme",
       "unenroll": "Desvincularme"
+    },
+    "toasts": {
+      "enroll": {
+        "error": "Error al asociarte al almacén {warehouse}",
+        "loading": "Asociándote al almacén ...",
+        "success": "Te has asociado al almacén {warehouse} correctamente"
+      },
+      "switch": {
+        "loading": "Cambiando almacén ..."
+      },
+      "unenroll": {
+        "error": "Error al desvincularte del almacén {warehouse}",
+        "loading": "Desvinculando almacén ...",
+        "success": "Te has desvinculado del almacén {warehouse} correctamente"
+      }
     }
   }
 }
