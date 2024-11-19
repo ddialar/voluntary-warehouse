@@ -69,6 +69,7 @@ const unenrollUserFromWarehouse = async ({ userId, warehouseId }: { userId: stri
     }
 
     await UserWarehouseEnrollmentRepository.unenrollUserFromWarehouse({
+      id: warehouseEnrollment.id,
       userId,
       warehouseId,
       unenrolledAt: new Date()
@@ -81,8 +82,38 @@ const unenrollUserFromWarehouse = async ({ userId, warehouseId }: { userId: stri
   }
 }
 
+const switchWarehouseEnrollment = async ({
+  userId,
+  prevWarehouseId,
+  nextWarehouseId
+}: {
+  userId: string
+  prevWarehouseId: string
+  nextWarehouseId: string
+}) => {
+  console.dir({ userId, prevWarehouseId, nextWarehouseId }, { depth: null })
+
+  try {
+    const prevPersistedWarehouse = await WarehouseController.getWarehouseById(prevWarehouseId)
+    if (!prevPersistedWarehouse) {
+      throw new WarehouseNoFoundError()
+    }
+
+    await unenrollUserFromWarehouse({ userId, warehouseId: prevWarehouseId })
+    await enrollUserAtWarehouse({ userId, warehouseId: nextWarehouseId })
+  } catch (error) {
+    if (error instanceof CustomApiError) {
+      throw error
+    }
+    throw new Error(
+      `Error switching warehouse user '${userId}' enrollment from warehouse '${prevWarehouseId}' at '${nextWarehouseId}'. ${(<Error>error).message}`
+    )
+  }
+}
+
 export const UserWarehouseEnrollmentController = {
   enrollUserAtWarehouse,
   getEnrolledWarehousesByUserId,
-  unenrollUserFromWarehouse
+  unenrollUserFromWarehouse,
+  switchWarehouseEnrollment
 }

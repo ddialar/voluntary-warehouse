@@ -47,16 +47,23 @@ const getWarehousesEnrollmentByUserIdAndWarehouseId = async ({
 }
 
 const unenrollUserFromWarehouse = async ({
+  id,
   userId,
   warehouseId,
   unenrolledAt
 }: {
+  id: string
   userId: string
   warehouseId: string
   unenrolledAt: Date
 }): Promise<void> => {
   try {
-    const { error } = await db.from(Entity).update({ unenrolledAt }).eq('userId', userId).eq('warehouseId', warehouseId)
+    const { error } = await db
+      .from(Entity)
+      .update({ unenrolledAt })
+      .eq('id', id)
+      .eq('userId', userId)
+      .eq('warehouseId', warehouseId)
 
     if (error) throw error
   } catch (error) {

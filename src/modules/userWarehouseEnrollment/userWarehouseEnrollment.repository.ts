@@ -20,15 +20,18 @@ const getWarehousesEnrollmentByUserIdAndWarehouseId = async ({
   })
 
 const unenrollUserFromWarehouse = async ({
+  id,
   userId,
   warehouseId,
   unenrolledAt
 }: {
+  id: string
   userId: string
   warehouseId: string
   unenrolledAt: Date
 }) =>
   UserWarehouseEnrollmentStore.unenrollUserFromWarehouse({
+    id,
     userId,
     warehouseId,
     unenrolledAt

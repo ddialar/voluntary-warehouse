@@ -1,4 +1,9 @@
-import { WAREHOUSE_API_URI, WAREHOUSE_ENROLL_API_URI, WAREHOUSE_UNENROLL_API_URI } from '@config'
+import {
+  WAREHOUSE_API_URI,
+  WAREHOUSE_ENROLL_API_URI,
+  WAREHOUSE_SWITCH_API_URI,
+  WAREHOUSE_UNENROLL_API_URI
+} from '@config'
 import { get, post, put } from '@fetcher'
 import { MapWarehouse, NewWarehousePayload, Warehouse } from '@modules/warehouse/warehouse.model'
 import useSWR, { mutate } from 'swr'
@@ -15,7 +20,7 @@ const unenrollUserFromWarehouse = async (body: { warehouseId: string }) =>
   put<unknown, { warehouseId: string }>({ url: WAREHOUSE_UNENROLL_API_URI, body })
 
 const switchWarehouseEnrollment = async (body: { prevWarehouseId: string; nextWarehouseId: string }) =>
-  put<unknown, { prevWarehouseId: string; nextWarehouseId: string }>({ url: WAREHOUSE_UNENROLL_API_URI, body })
+  post<unknown, { prevWarehouseId: string; nextWarehouseId: string }>({ url: WAREHOUSE_SWITCH_API_URI, body })
 
 const WAREHOUSES_KEY = 'warehouses_api'
 
