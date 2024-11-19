@@ -1,12 +1,19 @@
 {
   "common": {
     "cancel": "Cancel",
+    "confirm": "Confirm",
     "create": "Create",
     "creating": "Creating...",
     "latitude": "Latitude",
     "longitude": "Longitude"
   },
   "warehouse": {
+    "dialogs": {
+      "switchWarehouse": {
+        "question": "Do you confirm that you want to disconnect from your current warehouse and enroll at the new one you have selected?",
+        "title": "Warehouse Switch"
+      }
+    },
     "form": {
       "create": {
         "nameLabel": "Warehouse name",
@@ -30,6 +37,9 @@
         "error": "Error enrolling at warehouse {warehouse}",
         "loading": "Enrolling at warehouse...",
         "success": "Successfully enrolled at warehouse {warehouse}"
+      },
+      "switch": {
+        "loading": "Switching warehouse..."
       },
       "unenroll": {
         "error": "Error unenrolling from warehouse {warehouse}",
