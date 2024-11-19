@@ -3,7 +3,7 @@ import { UserWarehouseEnrollment } from './userWarehouseEnrollment.model'
 
 const Entity = 'user_warehouse_enrollment'
 
-const enrollUserToWarehouse = async (newEnrollment: Omit<UserWarehouseEnrollment, 'id'>) => {
+const enrollUserAtWarehouse = async (newEnrollment: Omit<UserWarehouseEnrollment, 'id'>) => {
   const { error } = await db.from(Entity).insert(newEnrollment)
 
   if (error) throw error
@@ -30,7 +30,7 @@ const getWarehousesEnrollmentByUserIdAndWarehouseId = async ({
   warehouseId: string
 }): Promise<UserWarehouseEnrollment | null> => {
   try {
-    const { data, error } = await db
+    const { data } = await db
       .from(Entity)
       .select()
       .eq('userId', userId)
@@ -38,8 +38,6 @@ const getWarehousesEnrollmentByUserIdAndWarehouseId = async ({
       .is('unenrolledAt', null)
       .limit(1)
       .single()
-
-    if (error) throw error
 
     return data as UserWarehouseEnrollment | null
   } catch (error) {
@@ -68,7 +66,7 @@ const unenrollUserFromWarehouse = async ({
 }
 
 export const UserWarehouseEnrollmentStore = {
-  enrollUserToWarehouse,
+  enrollUserAtWarehouse,
   getEnrolledWarehousesByUserId,
   getWarehousesEnrollmentByUserIdAndWarehouseId,
   unenrollUserFromWarehouse

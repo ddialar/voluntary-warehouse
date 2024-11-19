@@ -1,8 +1,8 @@
 import { UserWarehouseEnrollment } from './userWarehouseEnrollment.model'
 import { UserWarehouseEnrollmentStore } from './userWarehouseEnrollment.store'
 
-const enrollUserToWarehouse = async (newEnrollment: UserWarehouseEnrollment) =>
-  UserWarehouseEnrollmentStore.enrollUserToWarehouse(newEnrollment)
+const enrollUserAtWarehouse = async (newEnrollment: UserWarehouseEnrollment) =>
+  UserWarehouseEnrollmentStore.enrollUserAtWarehouse(newEnrollment)
 
 const getEnrolledWarehousesByUserId = async (userId: string) =>
   UserWarehouseEnrollmentStore.getEnrolledWarehousesByUserId(userId)
@@ -35,7 +35,7 @@ const unenrollUserFromWarehouse = async ({
   })
 
 export const UserWarehouseEnrollmentRepository = {
-  enrollUserToWarehouse,
+  enrollUserAtWarehouse,
   getEnrolledWarehousesByUserId,
   getWarehousesEnrollmentByUserIdAndWarehouseId,
   unenrollUserFromWarehouse

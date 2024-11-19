@@ -6,8 +6,21 @@ import { WarehouseEnrollmentNoFoundError } from './errors'
 import { UserWarehouseEnrollment } from './userWarehouseEnrollment.model'
 import { UserWarehouseEnrollmentRepository } from './userWarehouseEnrollment.repository'
 
-const enrollUserToWarehouse = async ({ userId, warehouseId }: { userId: string; warehouseId: string }) => {
+const enrollUserAtWarehouse = async ({ userId, warehouseId }: { userId: string; warehouseId: string }) => {
   try {
+    const persistedWarehouse = await WarehouseController.getWarehouseById(warehouseId)
+    if (!persistedWarehouse) {
+      throw new WarehouseNoFoundError()
+    }
+
+    const warehouseEnrollment = await getWarehousesEnrollmentByUserIdAndWarehouseId({
+      userId,
+      warehouseId
+    })
+    if (warehouseEnrollment) {
+      return
+    }
+
     const newEnrollment: UserWarehouseEnrollment = {
       id: randomUUID(),
       userId,
@@ -16,9 +29,12 @@ const enrollUserToWarehouse = async ({ userId, warehouseId }: { userId: string; 
       unenrolledAt: null
     }
 
-    await UserWarehouseEnrollmentRepository.enrollUserToWarehouse(newEnrollment)
+    await UserWarehouseEnrollmentRepository.enrollUserAtWarehouse(newEnrollment)
   } catch (error) {
-    throw new Error(`Error enrolling user '${userId}' into warehouse '${warehouseId}'. ${(<Error>error).message}`)
+    if (error instanceof CustomApiError) {
+      throw error
+    }
+    throw new Error(`Error enrolling user '${userId}' at warehouse '${warehouseId}'. ${(<Error>error).message}`)
   }
 }
 
@@ -66,7 +82,7 @@ const unenrollUserFromWarehouse = async ({ userId, warehouseId }: { userId: stri
 }
 
 export const UserWarehouseEnrollmentController = {
-  enrollUserToWarehouse,
+  enrollUserAtWarehouse,
   getEnrolledWarehousesByUserId,
   unenrollUserFromWarehouse
 }
