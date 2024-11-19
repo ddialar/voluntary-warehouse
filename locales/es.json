@@ -24,6 +24,18 @@
       "createWarehouse": "Crear Almacén",
       "enroll": "Asociarme",
       "unenroll": "Desvincularme"
+    },
+    "toasts": {
+      "enroll": {
+        "error": "Error al asociarte al almacén {warehouse}",
+        "loading": "Asociándote al almacén ...",
+        "success": "Te has asociado al almacén {warehouse} correctamente"
+      },
+      "unenroll": {
+        "error": "Error al desvincularte del almacén {warehouse}",
+        "loading": "Desvinculando almacén ...",
+        "success": "Te has desvinculado del almacén {warehouse} correctamente"
+      }
     }
   }
 }

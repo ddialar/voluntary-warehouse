@@ -24,6 +24,18 @@
       "createWarehouse": "Create Warehouse",
       "enroll": "Enroll",
       "unenroll": "Unenroll"
+    },
+    "toasts": {
+      "enroll": {
+        "error": "Error enrolling at warehouse {warehouse}",
+        "loading": "Enrolling at warehouse...",
+        "success": "Successfully enrolled at warehouse {warehouse}"
+      },
+      "unenroll": {
+        "error": "Error unenrolling from warehouse {warehouse}",
+        "loading": "Unenrolling from warehouse...",
+        "success": "Successfully unenrolled from warehouse {warehouse}"
+      }
     }
   }
 }

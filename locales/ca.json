@@ -24,6 +24,18 @@
       "createWarehouse": "Crear Magatzem",
       "enroll": "Associar-me",
       "unenroll": "Desvincular-me"
+    },
+    "toasts": {
+      "enroll": {
+        "error": "Error en associar-te al magatzem {warehouse}",
+        "loading": "Associant-te al magatzem...",
+        "success": "T'has associat correctament al magatzem {warehouse}"
+      },
+      "unenroll": {
+        "error": "Error en desvincular-te del magatzem {warehouse}",
+        "loading": "Desvinculant del magatzem...",
+        "success": "T'has desvinculat correctament del magatzem {warehouse}"
+      }
     }
   }
 }
