@@ -1,4 +1,4 @@
-import { WAREHOUSE_API_URI, WAREHOUSE_UNENROLL_API_URI } from '@config'
+import { WAREHOUSE_API_URI, WAREHOUSE_ENROLL_API_URI, WAREHOUSE_UNENROLL_API_URI } from '@config'
 import { get, post, put } from '@fetcher'
 import { NewWarehousePayload, Warehouse } from '@modules/warehouse/warehouse.model'
 import useSWR, { mutate } from 'swr'
@@ -7,6 +7,9 @@ const getWarehouses = async () => get<{ warehouses: Array<Warehouse> }>({ url: W
 
 const createWarehouse = async (data: NewWarehousePayload) =>
   post<Warehouse, NewWarehousePayload>({ url: WAREHOUSE_API_URI, body: data })
+
+const enrollUserAtWarehouse = async (warehouseId: string) =>
+  post<unknown, { warehouseId: string }>({ url: WAREHOUSE_ENROLL_API_URI, body: { warehouseId } })
 
 const unenrollUserFromWarehouse = async (warehouseId: string) =>
   put<unknown, { warehouseId: string }>({ url: WAREHOUSE_UNENROLL_API_URI, body: { warehouseId } })
@@ -38,6 +41,14 @@ export const useWarehouses = () => {
     }
   }
 
+  const enroll = async ({ warehouseId }: { warehouseId: string }) => {
+    const result = await enrollUserAtWarehouse(warehouseId)
+
+    if (result.success) localMutate()
+
+    return result
+  }
+
   const unenroll = async ({ warehouseId }: { warehouseId: string }) => {
     const result = await unenrollUserFromWarehouse(warehouseId)
 
@@ -51,6 +62,7 @@ export const useWarehouses = () => {
     isLoading,
     error,
     create,
+    enroll,
     unenroll
   }
 }
