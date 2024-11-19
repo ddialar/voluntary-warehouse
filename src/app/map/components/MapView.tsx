@@ -21,7 +21,7 @@ interface MapViewProps {
 
 export const MapView = ({ onWarehouseCreate }: MapViewProps) => {
   const t = useTranslations()
-  const { warehouses, enroll, unenroll, isEnrolled } = useWarehouses()
+  const { warehouses, enroll, unenroll, switchEnrollment, enrolledWarehouse } = useWarehouses()
   // REFACTOR Merge all these useState calls into a single object
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [newWarehouseLocation, setNewWarehouseLocation] = useState<{ lat: number; lng: number }>({ lat: 0, lng: 0 })
@@ -29,7 +29,7 @@ export const MapView = ({ onWarehouseCreate }: MapViewProps) => {
   const [selectedWarehouse, setSelectedWarehouse] = useState<Warehouse | null>(null)
 
   const handleEnrollUserAtWarehouse = async (warehouse: Warehouse) => {
-    if (isEnrolled) {
+    if (enrolledWarehouse) {
       setSelectedWarehouse(warehouse)
       setIsConfirmSwitchWarehouseDialogOpen(true)
       return
@@ -62,14 +62,16 @@ export const MapView = ({ onWarehouseCreate }: MapViewProps) => {
 
     setIsConfirmSwitchWarehouseDialogOpen(false)
 
-    toaster.success(toastId, t('warehouse.toasts.enroll.success', { warehouse: selectedWarehouse!.name }))
-    // const result = await enroll({ warehouseId: selectedWarehouse!.id })
+    const result = await switchEnrollment({
+      prevWarehouseId: enrolledWarehouse!.id,
+      nextWarehouseId: selectedWarehouse!.id
+    })
 
-    // if (result.success) {
-    //   toaster.success(toastId, t('warehouse.toasts.enroll.success', { warehouse: selectedWarehouse!.name }))
-    // } else {
-    //   toaster.error(toastId, t('warehouse.toasts.enroll.error', { warehouse: selectedWarehouse!.name }))
-    // }
+    if (result.success) {
+      toaster.success(toastId, t('warehouse.toasts.enroll.success', { warehouse: selectedWarehouse!.name }))
+    } else {
+      toaster.error(toastId, t('warehouse.toasts.enroll.error', { warehouse: selectedWarehouse!.name }))
+    }
   }
 
   const onCreateWarehouse = (location: { lat: number; lng: number }) => {
