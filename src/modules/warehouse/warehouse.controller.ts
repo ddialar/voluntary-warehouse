@@ -61,7 +61,7 @@ const createWarehouse = async ({ name, lat, lng, userId }: CreateWarehouseProps)
   }
 
   try {
-    await UserWarehouseEnrollmentController.enrollUserToWarehouse({ userId, warehouseId: persistedWarehouse.id })
+    await UserWarehouseEnrollmentController.enrollUserAtWarehouse({ userId, warehouseId: persistedWarehouse.id })
   } catch (error) {
     await WarehouseRepository.rollbackWarehouse(persistedWarehouse.id)
     throw error
